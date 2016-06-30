@@ -31,7 +31,7 @@ public class RenderedButton implements IRenderedObject
 		{
 			var c:Sprite = new Sprite();
 			c.addChild(state);
-			_frames.addFrame(CachedFrame.renderObject(c));
+			_frames.addFrame(CachedFrame.renderObject(c).trim());
 		}
 	}
 

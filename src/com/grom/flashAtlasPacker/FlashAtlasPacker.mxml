@@ -93,7 +93,7 @@
 			}
 		}
 
-		private function onClickSave():void
+		private function onClickExport():void
 		{
 			if (!_atlasList || !_atlasList.length)
 			{
@@ -124,6 +124,8 @@
 				index++;
 			}
 			ContainerLayoutBuilder.saveClasses(folder, _model.project.selectedClasses);
+			Log.info("...layouts exported to: ", folder.nativePath);
+			Alert.show("DONE!");
 		}
 
 		private function onAddParticles():void
@@ -188,7 +190,7 @@
 			<s:VGroup width="100%" height="100%" horizontalAlign="center">
 				<s:HGroup verticalAlign="middle">
 					<s:Button label="Generate..." click="onClickGenerate()"/>
-					<s:Button label="Save" click="onClickSave()"/>
+					<s:Button label="Export" click="onClickExport()"/>
 					<s:Label id="outPathLabel" text="{_model.project.outputPath}"/>
 				</s:HGroup>
 				<s:Scroller width="100%" height="100%">
