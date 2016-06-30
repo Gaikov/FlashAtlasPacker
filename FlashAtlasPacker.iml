@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="FlashAtlasPacker">
     <configurations>
-      <configuration name="FlashAtlasPacker" target-platform="Desktop" main-class="com.grom.flashAtlasPacker.FlashAtlasPacker" output-file="FlashAtlasPacker.swf" output-folder="$MODULE_DIR$/../out/production/FlashAtlasPacker">
+      <configuration name="FlashAtlasPacker" target-platform="Desktop" main-class="com.grom.flashAtlasPacker.FlashAtlasPacker" output-file="FlashAtlasPacker.swf" output-folder="$MODULE_DIR$/build">
         <dependencies target-player="10.1">
           <entries>
             <entry library-name="MainLibDependency" library-level="project">
