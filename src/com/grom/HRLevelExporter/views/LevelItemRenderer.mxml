@@ -14,7 +14,7 @@
             import com.grom.HRLevelExporter.events.PlayQueryEvent;
             import com.grom.HRLevelExporter.model.LevelModel;
 
-            import net.maygem.cqrs.domain.eventbus.EventBus;
+            import com.grom.cqrs.domain.eventbus.EventBus;
 
             [Bindable]
             private var _model:LevelModel;

@@ -17,7 +17,7 @@ import flash.utils.ByteArray;
 
 import mx.collections.ArrayList;
 
-import net.maygem.lib.debug.Log;
+import com.grom.lib.debug.Log;
 
 public class AtlasProject extends EventDispatcher
 {

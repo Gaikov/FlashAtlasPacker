@@ -17,9 +17,9 @@
 
 		import mx.controls.Alert;
 
-		import net.maygem.lib.debug.Log;
+		import com.grom.lib.debug.Log;
 
-		import net.maygem.lib.utils.UString;
+		import com.grom.lib.utils.UString;
 
 		private var _atlasList:Vector.<AtlasData>;
 		private var _currentAtlas:int = 0;

@@ -5,7 +5,7 @@ package com.grom.flashAtlasPacker.generator.atlasMeta
 {
 	import flash.geom.Rectangle;
 
-	import net.maygem.lib.graphics.bitmap.CachedFrame;
+	import com.grom.lib.graphics.bitmap.CachedFrame;
 
 	public class AtlasStarlingMeta implements IAtlasMeta
 	{

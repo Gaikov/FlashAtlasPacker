@@ -9,8 +9,8 @@ import com.grom.flashAtlasPacker.cache.IRenderedObject;
 
 import flash.display.MovieClip;
 
-import net.maygem.lib.graphics.bitmap.CachedFrame;
-import net.maygem.lib.graphics.bitmap.CachedMovieFrames;
+import com.grom.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedMovieFrames;
 
 public class RenderedMovie implements IRenderedObject
 {

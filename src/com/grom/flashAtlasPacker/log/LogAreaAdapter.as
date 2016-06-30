@@ -5,7 +5,7 @@
  */
 package com.grom.flashAtlasPacker.log
 {
-import net.maygem.lib.debug.ILogAdapter;
+import com.grom.lib.debug.ILogAdapter;
 
 import spark.components.TextArea;
 

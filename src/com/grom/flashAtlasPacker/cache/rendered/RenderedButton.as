@@ -11,8 +11,8 @@ import flash.display.DisplayObject;
 import flash.display.SimpleButton;
 import flash.display.Sprite;
 
-import net.maygem.lib.graphics.bitmap.CachedFrame;
-import net.maygem.lib.graphics.bitmap.CachedMovieFrames;
+import com.grom.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedMovieFrames;
 
 public class RenderedButton implements IRenderedObject
 {

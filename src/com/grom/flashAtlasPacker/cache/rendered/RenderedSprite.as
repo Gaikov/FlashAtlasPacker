@@ -9,7 +9,7 @@ import com.grom.flashAtlasPacker.cache.IRenderedObject;
 
 import flash.display.DisplayObject;
 
-import net.maygem.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 public class RenderedSprite implements IRenderedObject
 {

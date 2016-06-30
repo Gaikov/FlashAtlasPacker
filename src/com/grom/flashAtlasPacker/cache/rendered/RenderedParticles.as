@@ -8,8 +8,8 @@ package com.grom.flashAtlasPacker.cache.rendered
 import com.grom.display.particles.ParticlesDesc;
 import com.grom.flashAtlasPacker.cache.IRenderedObject;
 
-import net.maygem.lib.graphics.bitmap.CachedFrame;
-import net.maygem.lib.graphics.bitmap.CachedMovieFrames;
+import com.grom.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedMovieFrames;
 
 public class RenderedParticles implements IRenderedObject
 {

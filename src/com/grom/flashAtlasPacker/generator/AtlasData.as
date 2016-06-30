@@ -16,7 +16,7 @@ import flash.geom.Rectangle;
 
 import mx.graphics.codec.PNGEncoder;
 
-import net.maygem.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 /*
  *

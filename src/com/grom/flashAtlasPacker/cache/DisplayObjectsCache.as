@@ -9,8 +9,8 @@ import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 
 import flash.utils.Dictionary;
 
-import net.maygem.lib.debug.Log;
-import net.maygem.lib.utils.UMap;
+import com.grom.lib.debug.Log;
+import com.grom.lib.utils.UMap;
 
 public class DisplayObjectsCache
 {

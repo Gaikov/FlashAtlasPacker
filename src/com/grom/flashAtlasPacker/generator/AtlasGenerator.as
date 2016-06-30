@@ -14,9 +14,9 @@ import com.grom.flashAtlasPacker.cache.IRenderedObject;
 
 import flash.geom.Point;
 
-import net.maygem.lib.debug.Log;
+import com.grom.lib.debug.Log;
 
-import net.maygem.lib.utils.UString;
+import com.grom.lib.utils.UString;
 
 public class AtlasGenerator
 {
@@ -136,8 +136,8 @@ import com.grom.flashAtlasPacker.area.AreasAllocator;
 
 import flash.geom.Rectangle;
 
-import net.maygem.lib.debug.Log;
-import net.maygem.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.debug.Log;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 class SortFrameEntry
 {

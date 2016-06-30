@@ -11,8 +11,8 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.text.TextField;
 
-import net.maygem.lib.utils.UContainer;
-import net.maygem.lib.utils.UDisplay;
+import com.grom.lib.utils.UContainer;
+import com.grom.lib.utils.UDisplay;
 
 public class ContainerAtlasSource extends ObjectAtlasSource
 {

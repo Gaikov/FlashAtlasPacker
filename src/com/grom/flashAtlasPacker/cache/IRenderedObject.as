@@ -5,7 +5,7 @@
  */
 package com.grom.flashAtlasPacker.cache
 {
-import net.maygem.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 public interface IRenderedObject
 {

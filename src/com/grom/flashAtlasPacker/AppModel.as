@@ -7,7 +7,7 @@ package com.grom.flashAtlasPacker
 {
 import com.grom.flashAtlasPacker.project.AtlasProject;
 
-import net.maygem.lib.settings.UserVar;
+import com.grom.lib.settings.UserVar;
 
 public class AppModel
 {

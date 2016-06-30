@@ -10,7 +10,7 @@ import com.grom.flashAtlasPacker.Utils;
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
-import net.maygem.lib.utils.UDisplay;
+import com.grom.lib.utils.UDisplay;
 
 public class DefaultLayoutExporter implements ILayoutExporter
 {

@@ -13,7 +13,7 @@ import flash.filesystem.FileStream;
 import flash.utils.ByteArray;
 import flash.utils.getQualifiedClassName;
 
-import net.maygem.lib.debug.Log;
+import com.grom.lib.debug.Log;
 
 public class Utils
 {

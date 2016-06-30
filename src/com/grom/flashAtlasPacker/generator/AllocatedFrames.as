@@ -9,7 +9,7 @@ import flash.display.BitmapData;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
-import net.maygem.lib.graphics.bitmap.CachedFrame;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 public class AllocatedFrames
 {

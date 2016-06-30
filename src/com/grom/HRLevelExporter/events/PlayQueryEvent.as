@@ -9,7 +9,7 @@ package com.grom.HRLevelExporter.events
 {
 import com.grom.HRLevelExporter.model.LevelModel;
 
-import net.maygem.cqrs.domain.event.BaseEvent;
+import com.grom.cqrs.domain.event.BaseEvent;
 
 public class PlayQueryEvent implements BaseEvent
 {

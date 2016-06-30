@@ -16,8 +16,8 @@ import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
 import flash.utils.ByteArray;
 
-import net.maygem.lib.debug.Log;
-import net.maygem.lib.settings.UserVar;
+import com.grom.lib.debug.Log;
+import com.grom.lib.settings.UserVar;
 
 public class BaseProject extends EventDispatcher
 {
