@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+    <s:HGroup width="100%" gap="20"
+              paddingLeft="2" paddingTop="2" paddingBottom="2" paddingRight="2"
+              verticalAlign="middle">
+
+
+        <s:Button label="Play" click="onClickPlay()"/>
+        <s:NumericStepper id="difficult" value="{_model._levelDifficult}" minimum="1" maximum="10"
+                          change="onDifficultChanged()" />
+        <s:Label text="{_model._levelClass}"/>
+
+        <fx:Script><![CDATA[
+            import com.grom.HRLevelExporter.events.PlayQueryEvent;
+            import com.grom.HRLevelExporter.model.LevelModel;
+
+            import net.maygem.cqrs.domain.eventbus.EventBus;
+
+            [Bindable]
+            private var _model:LevelModel;
+
+            override public function set data(value:Object):void
+            {
+                super.data = value;
+                if (value)
+                {
+                    _model = LevelModel(value);
+                }
+                else
+                {
+                    _model = null;
+                }
+            }
+
+            private function onClickPlay():void
+            {
+                EventBus.instance.dispatchEvent(new PlayQueryEvent(LevelModel(data)));
+            }
+
+            private function onDifficultChanged():void
+            {
+                if (_model)
+                {
+                    _model._levelDifficult = difficult.value;
+                }
+            }
+            ]]></fx:Script>
+    </s:HGroup>
+</s:ItemRenderer>

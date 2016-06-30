@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<s:WindowedApplication
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		creationComplete="onCreate()">
+	<fx:Script><![CDATA[
+		import com.grom.flashAtlasPacker.complex.ContainerLayoutBuilder;
+		import com.grom.flashAtlasPacker.generator.AtlasData;
+		import com.grom.flashAtlasPacker.generator.AtlasGenerator;
+		import com.grom.flashAtlasPacker.generator.atlasSource.ContainerAtlasSource;
+		import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
+		import com.grom.flashAtlasPacker.generator.atlasSource.ObjectAtlasSource;
+		import com.grom.flashAtlasPacker.log.LogAreaAdapter;
+		import com.grom.flashAtlasPacker.project.AtlasProject;
+		import com.grom.flashAtlasPacker.project.ParticlesModel;
+		import com.grom.flashAtlasPacker.project.ProjectFile;
+
+		import mx.controls.Alert;
+
+		import net.maygem.lib.debug.Log;
+
+		import net.maygem.lib.utils.UString;
+
+		private var _atlasList:Vector.<AtlasData>;
+		private var _currentAtlas:int = 0;
+
+		[Bindable]
+		private var _model:AppModel = AppModel.instance;
+
+		private function onCreate():void
+		{
+			Log.addAdapter(new LogAreaAdapter(logArea));
+
+			_model.project = ProjectFile.openDefaultProject();
+			if (!_model.project)
+			{
+				_model.project = new AtlasProject();
+			}
+		}
+
+		private function onClickOpenSWF():void
+		{
+			var file:File = new File();
+			file.addEventListener(Event.SELECT, function ():void
+			{
+				_model.project.lastSWF = file.nativePath;
+			});
+			file.browseForOpen("Open SWF", [new FileFilter("Flash movies", "*.swf")]);
+		}
+
+		private function onClickGenerate():void
+		{
+			if (!_model.project.swfClassNames)
+			{
+				Alert.show("No Classes Loaded!");
+			}
+			else if (!_model.project.selectedNames.length)
+			{
+				Alert.show("Select a classes");
+			}
+			else
+			{
+				var sources:Vector.<IAtlasSource> = new Vector.<IAtlasSource>();
+				for each (var cls:Class in _model.project.selectedClasses)
+				{
+					var obj:DisplayObject = new cls();
+					if (ContainerLayoutBuilder.isContainer(obj))
+					{
+						sources.push(new ContainerAtlasSource(cls));
+					}
+					else
+					{
+						sources.push(new ObjectAtlasSource(cls));
+					}
+				}
+
+				for each (var p:ParticlesModel in _model.project.particlesList.source)
+				{
+					var s:IAtlasSource = p.createSource();
+					if (s)
+					{
+						sources.push(p.createSource());
+					}
+				}
+
+				var generator:AtlasGenerator = new AtlasGenerator(sources, 2048, 2048);
+				_atlasList = generator.generate();
+				if (_atlasList.length)
+				{
+					resultView.source = _atlasList[0].bitmapData;
+					_currentAtlas = 0;
+				}
+			}
+		}
+
+		private function onClickSave():void
+		{
+			if (!_atlasList || !_atlasList.length)
+			{
+				Alert.show("Generate it first!");
+			}
+			else if (_model.project.outputPath)
+			{
+				writeData(new File(_model.project.outputPath));
+			}
+			else
+			{
+				var folder:File = new File();
+				folder.addEventListener(Event.SELECT, function ():void
+				{
+					writeData(folder);
+				});
+				folder.browseForDirectory("Select Folder");
+			}
+		}
+
+		private function writeData(folder:File):void
+		{
+			_model.project.outputPath = folder.nativePath;
+			var index:int = 0;
+			for each (var atlas:AtlasData in _atlasList)
+			{
+				atlas.write(folder, "atlas" + UString.prefixZero(index, 2));
+				index++;
+			}
+			ContainerLayoutBuilder.saveClasses(folder, _model.project.selectedClasses);
+		}
+
+		private function onAddParticles():void
+		{
+			_model.project.particlesList.addItem(new ParticlesModel());
+			_model.project.modified = true;
+		}
+
+		private function onPrevAtlas():void
+		{
+			if (_atlasList)
+			{
+				_currentAtlas--;
+				if (_currentAtlas < 0)
+				{
+					_currentAtlas += _atlasList.length;
+				}
+
+				resultView.source = _atlasList[_currentAtlas].bitmapData;
+			}
+		}
+
+		private function onNextAtlas():void
+		{
+			if (_atlasList)
+			{
+				_currentAtlas = (_currentAtlas + 1) % _atlasList.length;
+				resultView.source = _atlasList[_currentAtlas].bitmapData;
+			}
+		}
+		]]></fx:Script>
+
+	<s:VGroup width="100%" height="100%">
+
+		<s:HGroup verticalAlign="middle" paddingLeft="10" paddingRight="10" paddingTop="10">
+			<s:Label text="Project"/>
+			<s:Button label="New" click="_model.project = new AtlasProject(); _model.projectFile = null"/>
+			<s:Button label="Open..." click="ProjectFile.openProject()"/>
+			<s:Button label="Save..." enabled="{_model.project.modified}"
+			          click="ProjectFile.saveProject(_model.project)"/>
+			<s:Label text="{_model.projectFile}"/>
+		</s:HGroup>
+
+		<s:HGroup width="100%" height="100%" paddingLeft="10" paddingRight="10" paddingTop="10">
+			<s:VGroup height="100%">
+				<s:Button click="onClickOpenSWF()" label="Open SWF"/>
+
+				<s:VGroup width="250" height="100%">
+					<s:Label text="Classes: "/>
+					<s:List id="classesList" width="100%" height="100%" allowMultipleSelection="true"
+					        dataProvider="{_model.project.swfClassNames}"
+					        selectedItems="{_model.project.selectedNames}"
+					        change="_model.project.selectedNames = classesList.selectedItems"/>
+					<s:Label text="Particles: "/>
+					<s:List id="particlesList" width="100%" height="100%"
+					        dataProvider="{_model.project.particlesList}"
+					        itemRenderer="com.grom.flashAtlasPacker.views.ParticlesItemRenderer"/>
+					<s:Button label="Add Particles" click="onAddParticles()"/>
+				</s:VGroup>
+			</s:VGroup>
+
+			<s:VGroup width="100%" height="100%" horizontalAlign="center">
+				<s:HGroup verticalAlign="middle">
+					<s:Button label="Generate..." click="onClickGenerate()"/>
+					<s:Button label="Save" click="onClickSave()"/>
+					<s:Label id="outPathLabel" text="{_model.project.outputPath}"/>
+				</s:HGroup>
+				<s:Scroller width="100%" height="100%">
+					<s:Group>
+						<s:Image id="resultView"/>
+					</s:Group>
+				</s:Scroller>
+				<s:HGroup>
+					<s:Button label="Prev" click="onPrevAtlas()"/>
+					<s:Button label="Next" click="onNextAtlas()"/>
+				</s:HGroup>
+			</s:VGroup>
+		</s:HGroup>
+
+		<s:TextArea id="logArea" width="100%" height="100"/>
+	</s:VGroup>
+</s:WindowedApplication>

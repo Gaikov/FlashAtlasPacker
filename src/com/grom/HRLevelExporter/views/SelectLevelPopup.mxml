@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         title="Select Class">
+
+    <s:VGroup width="600" height="600" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+        <s:List id="classesList" width="100%" height="100%" dataProvider="{_filteredList}" allowMultipleSelection="true"/>
+
+        <s:HGroup width="100%">
+
+            <s:HGroup verticalAlign="middle">
+                <s:Label text="Find:"/>
+                <s:TextInput id="inputFind" change="updateFilter(inputFind.text)"/>
+            </s:HGroup>
+
+            <s:HGroup horizontalAlign="right" width="100%">
+                <s:Button label="OK" click="onOk()"/>
+                <s:Button label="Close" click="close()"/>
+            </s:HGroup>
+        </s:HGroup>
+
+    </s:VGroup>
+
+    <fx:Script><![CDATA[
+        import com.grom.HRLevelExporter.model.LevelModel;
+
+        import mx.collections.ArrayList;
+        import mx.controls.Alert;
+        import mx.core.FlexGlobals;
+        import mx.managers.PopUpManager;
+
+        private var _onSelectCompleted:Function;
+
+        private var _levelClassesList:ArrayList;
+
+        [Bindable]
+        private var _filteredList:ArrayList;
+
+        public static function show(levelClasses:ArrayList, selectionCompleted:Function):void
+        {
+            var win:SelectLevelPopup = new SelectLevelPopup();
+            win._onSelectCompleted = selectionCompleted;
+            win._levelClassesList = levelClasses;
+            win.updateFilter();
+            PopUpManager.addPopUp(win, DisplayObject(FlexGlobals.topLevelApplication), true);
+            PopUpManager.centerPopUp(win);
+        }
+
+        private function close():void
+        {
+            PopUpManager.removePopUp(this);
+        }
+
+        private function onOk():void
+        {
+            if (!classesList.selectedItems.length)
+            {
+                Alert.show("Select level class!");
+                return;
+            }
+
+            var modelsList:Array = [];
+            for each (var levelClass:String in classesList.selectedItems)
+            {
+                modelsList.push(new LevelModel(levelClass));
+            }
+
+            _onSelectCompleted(modelsList);
+            close();
+        }
+
+        private function updateFilter(text:String = null):void
+        {
+            if (!text)
+            {
+                _filteredList = _levelClassesList;
+            }
+            else
+            {
+                var list:Array = _levelClassesList.toArray().filter(function (levelName:String, index:int, arr:Array):Boolean
+                {
+                    return levelName.indexOf(text) >= 0;
+                });
+
+                _filteredList = new ArrayList(list);
+            }
+        }
+        ]]></fx:Script>
+</s:Panel>

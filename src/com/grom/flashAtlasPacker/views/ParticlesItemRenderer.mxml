@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark">
+
+
+	<s:HGroup width="100%" paddingTop="5" paddingBottom="5" horizontalAlign="center">
+		<s:Button id="buttonName" label="file..." click="onSelectFile()"/>
+		<s:Button id="buttonClass" label="class..." click="onSelectClass()"/>
+	</s:HGroup>
+
+	<fx:Script><![CDATA[
+        import com.grom.flashAtlasPacker.AppModel;
+        import com.grom.flashAtlasPacker.project.ParticlesModel;
+
+        private var _model:ParticlesModel;
+
+        override public function set data(value:Object):void
+        {
+            super.data = value;
+            _model = ParticlesModel(value);
+            if (_model.name)
+            {
+                buttonName.label = _model.name;
+            }
+
+            if (_model.className)
+            {
+                buttonClass.label = _model.className;
+            }
+        }
+
+        private function onSelectFile():void
+        {
+            var file:File = new File();
+            file.addEventListener(Event.SELECT, function ():void
+            {
+                _model._fileName = file.nativePath;
+                buttonName.label = _model.name;
+                AppModel.instance.project.modified = true;
+            });
+
+            file.browseForOpen("Open particles", [new FileFilter("Particles", "*.xml")]);
+        }
+
+        private function onSelectClass():void
+        {
+            SelectClassPopup.show(function (name:String):void
+            {
+                _model._particleClass = AppModel.instance.project.getClass(name);
+                buttonClass.label = _model.className;
+                AppModel.instance.project.modified = true;
+            });
+        }
+
+        ]]></fx:Script>
+</s:ItemRenderer>
