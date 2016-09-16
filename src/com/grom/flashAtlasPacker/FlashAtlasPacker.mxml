@@ -5,6 +5,7 @@
 		creationComplete="onCreate()">
 	<fx:Script><![CDATA[
 		import com.grom.flashAtlasPacker.complex.ContainerLayoutBuilder;
+		import com.grom.flashAtlasPacker.fonts.FontsExporter;
 		import com.grom.flashAtlasPacker.generator.AtlasData;
 		import com.grom.flashAtlasPacker.generator.AtlasGenerator;
 		import com.grom.flashAtlasPacker.generator.atlasSource.ContainerAtlasSource;
@@ -114,17 +115,22 @@
 			}
 		}
 
-		private function writeData(folder:File):void
+		private function writeData(outFolder:File):void
 		{
-			_model.project.outputPath = folder.nativePath;
+			var fontsExporter:FontsExporter = new FontsExporter(AppModel.instance);
+
+			_model.project.outputPath = outFolder.nativePath;
 			var index:int = 0;
 			for each (var atlas:AtlasData in _atlasList)
 			{
-				atlas.write(folder, "atlas" + UString.prefixZero(index, 2));
+				atlas.write(outFolder, "atlas" + UString.prefixZero(index, 2));
 				index++;
 			}
-			ContainerLayoutBuilder.saveClasses(folder, _model.project.selectedClasses);
-			Log.info("...layouts exported to: ", folder.nativePath);
+			ContainerLayoutBuilder.saveClasses(outFolder, _model.project.selectedClasses, fontsExporter);
+			Log.info("...layouts exported to: ", outFolder.nativePath);
+
+			fontsExporter.export(outFolder);
+
 			Alert.show("DONE!");
 		}
 

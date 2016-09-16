@@ -5,6 +5,8 @@
  */
 package com.grom.flashAtlasPacker.complex
 {
+import com.grom.flashAtlasPacker.fonts.FontsExporter;
+
 import flash.display.DisplayObject;
 import flash.text.TextField;
 import flash.text.TextFieldType;
@@ -12,6 +14,13 @@ import flash.text.TextFormat;
 
 public class TextFieldExporter implements ILayoutExporter
 {
+	private var _fontsExporter:FontsExporter;
+
+	public function TextFieldExporter(fontsExporter:FontsExporter)
+	{
+		_fontsExporter = fontsExporter;
+	}
+
 	public function build(obj:DisplayObject):XML
 	{
 		var field:TextField = TextField(obj);
@@ -25,6 +34,9 @@ public class TextFieldExporter implements ILayoutExporter
 		xml.@font = format.font;
 		xml.@fontSize = format.size;
 		xml.@color = uint(format.color).toString(16).toUpperCase();
+		
+		xml.@bitmapFont = _fontsExporter.registerFont(format.font, int(format.size), uint(format.color), field.filters);
+		
 		delete xml["@class"];
 
 		return xml;

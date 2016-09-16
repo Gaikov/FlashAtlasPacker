@@ -12,7 +12,9 @@ import com.grom.flashAtlasPacker.cache.IRenderedObject;
 	import com.grom.flashAtlasPacker.generator.atlasMeta.AtlasStarlingMeta;
 	import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 
-import flash.geom.Point;
+	import flash.display.BitmapData;
+
+	import flash.geom.Point;
 
 import com.grom.lib.debug.Log;
 
@@ -113,12 +115,17 @@ public class AtlasGenerator
 	private function computeSize(list:Vector.<SortFrameEntry>):Point
 	{
 		var totalPixels:int = 0;
+		var minSize:int = 0;
 		for each (var entry:SortFrameEntry in list)
 		{
-			totalPixels += entry.frame.bitmapData.width * entry.frame.bitmapData.height;
+			var bd:BitmapData = entry.frame.bitmapData;
+
+			totalPixels += bd.width * bd.height;
+			minSize = Math.max(bd.width, minSize);
+			minSize = Math.max(bd.height, minSize);
 		}
 
-		var size:uint = Math.sqrt(totalPixels);
+		var size:uint = Math.max(Math.sqrt(totalPixels), minSize);
 		Log.info("computed size: " + size);
 
 		var power:int = 1;

@@ -3,8 +3,6 @@
  */
 package com.grom.flashAtlasPacker.generator.atlasMeta
 {
-	import com.adobe.serialization.json.JSON;
-
 	import flash.geom.Rectangle;
 
 	import com.grom.lib.graphics.bitmap.CachedFrame;
@@ -46,7 +44,7 @@ package com.grom.flashAtlasPacker.generator.atlasMeta
 
 		public function get meta():String
 		{
-			return com.adobe.serialization.json.JSON.encode(_root);
+			return JSON.stringify(_root);
 		}
 
 		public function get fileExt():String

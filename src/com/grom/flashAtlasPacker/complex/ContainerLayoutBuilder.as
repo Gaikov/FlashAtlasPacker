@@ -8,6 +8,7 @@ package com.grom.flashAtlasPacker.complex
 import avmplus.getQualifiedClassName;
 
 import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.fonts.FontsExporter;
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
@@ -22,30 +23,30 @@ import com.grom.lib.utils.UDisplay;
 
 public class ContainerLayoutBuilder
 {
-	static private var _exportersClassNameMap:Object = {};
-	static private var _exportersClassMap:Dictionary = new Dictionary();
+	private var _exportersClassNameMap:Object = {};
+	private var _exportersClassMap:Dictionary = new Dictionary();
 
 	private var _container:DisplayObjectContainer;
 	private var _defaultExporter:ILayoutExporter = new DefaultLayoutExporter();
 
-	public function ContainerLayoutBuilder(container:DisplayObjectContainer)
+	public function ContainerLayoutBuilder(container:DisplayObjectContainer, fontExporter:FontsExporter)
 	{
 		_container = container;
-		registerExporterByClassName(getQualifiedClassName(TextField), new TextFieldExporter());
+		registerExporterByClassName(getQualifiedClassName(TextField), new TextFieldExporter(fontExporter));
 		registerExporterByClass(SimpleButton, new ButtonExporter());
 	}
 
-	static public function registerExporterByClassName(className:String, e:ILayoutExporter):void
+	public function registerExporterByClassName(className:String, e:ILayoutExporter):void
 	{
 		_exportersClassNameMap[className] = e;
 	}
 
-	static public function registerExporterByClass(cls:Class, e:ILayoutExporter):void
+	public function registerExporterByClass(cls:Class, e:ILayoutExporter):void
 	{
 		_exportersClassMap[cls] = e;
 	}
 
-	static public function saveClasses(folder:File, classes:Vector.<Class>):void
+	static public function saveClasses(folder:File, classes:Vector.<Class>, fontExporter:FontsExporter):void
 	{
 		var layout:XML = <layouts/>;
 
@@ -54,7 +55,7 @@ public class ContainerLayoutBuilder
 			var obj:DisplayObject = new cls();
 			if (isContainer(obj))
 			{
-				var builder:ContainerLayoutBuilder = new ContainerLayoutBuilder(DisplayObjectContainer(obj));
+				var builder:ContainerLayoutBuilder = new ContainerLayoutBuilder(DisplayObjectContainer(obj), fontExporter);
 				layout.appendChild(builder.build());
 			}
 		}
