@@ -3,24 +3,30 @@
  */
 package com.grom.flashAtlasPacker.fonts
 {
+import air.update.utils.FileUtils;
+
 import com.grom.flashAtlasPacker.AppModel;
 import com.grom.lib.debug.Log;
-
-import flash.filesystem.File;
 
 import flash.filesystem.File;
 
 public class FontsExporter
 {
 	static public const FONTS_FOLDER:String = "fonts";
+	static public const TEMPLATE_FILE:String = "bmfont_template.bmfc";
 
 	private var _model:AppModel;
 
 	private var _fonts:Object = {};
 
+	private var _template:String;
+
 	public function FontsExporter(model:AppModel)
 	{
 		_model = model;
+
+		var file:File = File.applicationDirectory.resolvePath(TEMPLATE_FILE);
+		_template = FileUtils.readUTFBytesFromFile(file);
 	}
 
 	public function registerFont(font:String, size:int, color:uint, filters:Array):void

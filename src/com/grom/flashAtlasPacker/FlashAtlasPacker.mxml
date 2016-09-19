@@ -2,7 +2,7 @@
 <s:WindowedApplication
 		xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		creationComplete="onCreate()">
+		applicationComplete="onCreate()">
 	<fx:Script><![CDATA[
 		import com.grom.flashAtlasPacker.complex.ContainerLayoutBuilder;
 		import com.grom.flashAtlasPacker.fonts.FontsExporter;
@@ -22,21 +22,25 @@
 
 		import com.grom.lib.utils.UString;
 
+		import robotlegs.bender.bundles.mvcs.MVCSBundle;
+		import robotlegs.bender.extensions.contextView.ContextView;
+		import robotlegs.bender.framework.api.IContext;
+
+		import robotlegs.bender.framework.impl.Context;
+
 		private var _atlasList:Vector.<AtlasData>;
 		private var _currentAtlas:int = 0;
 
 		[Bindable]
 		private var _model:AppModel = AppModel.instance;
 
+		private var _context:IContext;
+
 		private function onCreate():void
 		{
 			Log.addAdapter(new LogAreaAdapter(logArea));
 
-			_model.project = ProjectFile.openDefaultProject();
-			if (!_model.project)
-			{
-				_model.project = new AtlasProject();
-			}
+			_context = new Context().install(MVCSBundle).configure(AppConfig).configure(new ContextView(stage));
 		}
 
 		private function onClickLoadSWF():void
