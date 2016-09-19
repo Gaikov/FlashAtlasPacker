@@ -12,6 +12,7 @@ import com.grom.lib.settings.UserVar;
 public class AppModel
 {
 	private var _projectFile:UserVar = new UserVar("project_file", null);
+	private var _bmFontFile:UserVar = new UserVar("bmfont_file", "");
 	private var _project:AtlasProject;
 
 	private static var _instance:AppModel;
@@ -27,6 +28,16 @@ public class AppModel
 			_instance = new AppModel();
 		}
 		return _instance;
+	}
+
+	public function get bmFontFile():String
+	{
+		return _bmFontFile.value;
+	}
+
+	public function set bmFontFile(value:String):void
+	{
+		_bmFontFile.value = value;
 	}
 
 	[Bindable]
