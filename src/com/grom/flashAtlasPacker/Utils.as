@@ -46,6 +46,14 @@ public class Utils
 		bytes.position = 0;
 		return bytes;
 	}
+	
+	static public function writeFileText(file:File, data:String):void
+	{
+		var stream:FileStream = new FileStream();
+		stream.open(file, FileMode.WRITE);
+		stream.writeUTFBytes(data);
+		stream.close();
+	}
 
 	static public function getRelativePath(path:String, relativeTo:File):String
 	{

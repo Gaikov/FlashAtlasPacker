@@ -133,9 +133,12 @@
 			ContainerLayoutBuilder.saveClasses(outFolder, _model.project.selectedClasses, fontsExporter);
 			Log.info("...layouts exported to: ", outFolder.nativePath);
 
-			fontsExporter.export(outFolder);
+			fontsExporter.addEventListener(Event.COMPLETE, function ():void
+			{
+				Alert.show("DONE!");
+			});
 
-			Alert.show("DONE!");
+			fontsExporter.export();
 		}
 
 		private function onAddParticles():void

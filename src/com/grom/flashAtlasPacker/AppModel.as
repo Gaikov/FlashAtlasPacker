@@ -9,6 +9,8 @@ import com.grom.flashAtlasPacker.project.AtlasProject;
 
 import com.grom.lib.settings.UserVar;
 
+import flash.filesystem.File;
+
 public class AppModel
 {
 	private var _projectFile:UserVar = new UserVar("project_file", null);
@@ -60,6 +62,11 @@ public class AppModel
 	public function set project(value:AtlasProject):void
 	{
 		_project = value;
+	}
+
+	public function get outPath():File
+	{
+		return new File(projectFile).parent;
 	}
 }
 }
