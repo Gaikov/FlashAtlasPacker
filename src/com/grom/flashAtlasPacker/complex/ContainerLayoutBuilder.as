@@ -7,7 +7,7 @@ package com.grom.flashAtlasPacker.complex
 {
 import avmplus.getQualifiedClassName;
 
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.Utils;
 import com.grom.flashAtlasPacker.fonts.FontsExporter;
 
 import flash.display.DisplayObject;

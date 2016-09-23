@@ -6,13 +6,18 @@ package com.grom.flashAtlasPacker.fonts
 import air.update.utils.FileUtils;
 
 import com.grom.flashAtlasPacker.AppModel;
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.ImageLoader;
+import com.grom.flashAtlasPacker.utils.Utils;
 import com.grom.lib.debug.Log;
 import com.grom.sys.ProcessRunner;
 
+import flash.display.BitmapData;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.filesystem.File;
+import flash.filters.BitmapFilter;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 public class FontsExporter extends EventDispatcher
 {
@@ -32,14 +37,15 @@ public class FontsExporter extends EventDispatcher
 		var file:File = File.applicationDirectory.resolvePath(TEMPLATE_FILE);
 		_template = FileUtils.readUTFBytesFromFile(file);
 
-		_outPath = _model.outPath.resolvePath(FONTS_FOLDER);
+		_outPath = new File(_model.project.outputPath);
+		_outPath = _outPath.resolvePath(FONTS_FOLDER);
 		if (!_outPath.exists)
 		{
 			_outPath.createDirectory();
 		}
 	}
 
-	public function registerFont(font:String, size:int, color:uint, filters:Array):void
+	public function registerFont(font:String, size:int, color:uint, filters:Array):String
 	{
 		var name:String = getFontName(font, size, color, filters);
 		var desc:FontDesc = _fonts[name];
@@ -47,6 +53,7 @@ public class FontsExporter extends EventDispatcher
 		{
 			_fonts[name] = new FontDesc(name, font, size, color, filters);
 		}
+		return name;
 	}
 	
 	public function export():void
@@ -83,7 +90,7 @@ public class FontsExporter extends EventDispatcher
 		var bmfont:ProcessRunner = new ProcessRunner(new File(_model.bmFontFile), _outPath);
 		bmfont.addEventListener(Event.COMPLETE, function ():void
 		{
-			exportNextFont();
+			applyFilters(font, exportNextFont);
 		});
 
 		var args:Vector.<String> = new <String>[];
@@ -101,23 +108,29 @@ public class FontsExporter extends EventDispatcher
 		name = name.replace(" ", "_");
 		return name;
 	}
-}
-}
 
-class FontDesc
-{
-	public var name:String;
-	public var family:String;
-	public var size:int;
-	public var color:uint;
-	public var filters:Array;
-
-	public function FontDesc(name:String, family:String, size:int, color:uint, filters:Array)
+	private function applyFilters(font:FontDesc, completed:Function):void
 	{
-		this.name = name;
-		this.family = family;
-		this.size = size;
-		this.color = color;
-		this.filters = filters;
+		if (!font.filters || !font.filters.length)
+		{
+			completed();
+			return;
+		}
+
+		var imageFile:File = _outPath.resolvePath(font.name + ".png");
+		ImageLoader.load(imageFile, function (data:BitmapData):void
+		{
+			if (data)
+			{
+				for each (var f:BitmapFilter in font.filters)
+				{
+					data.applyFilter(data, new Rectangle(0, 0, data.width, data.height), new Point(0, 0), f);
+				}
+				Utils.savePng(imageFile, data);
+			}
+			completed();
+		});
 	}
 }
+}
+

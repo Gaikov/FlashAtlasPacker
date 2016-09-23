@@ -63,10 +63,5 @@ public class AppModel
 	{
 		_project = value;
 	}
-
-	public function get outPath():File
-	{
-		return new File(projectFile).parent;
-	}
 }
 }

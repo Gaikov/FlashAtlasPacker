@@ -6,7 +6,7 @@
 package com.grom.flashAtlasPacker.project
 {
 import com.grom.display.particles.ParticlesDesc;
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.Utils;
 import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 import com.grom.flashAtlasPacker.generator.atlasSource.ParticlesAtlasSource;
 

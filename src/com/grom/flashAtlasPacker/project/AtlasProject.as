@@ -6,7 +6,7 @@
 package com.grom.flashAtlasPacker.project
 {
 import com.grom.ToolsCommon.swf.SWFUtils;
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.Utils;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;

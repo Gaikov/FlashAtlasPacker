@@ -5,7 +5,8 @@
  */
 package com.grom.flashAtlasPacker.generator
 {
-	import com.grom.flashAtlasPacker.generator.atlasMeta.IAtlasMeta;
+import com.grom.flashAtlasPacker.utils.Utils;
+import com.grom.flashAtlasPacker.generator.atlasMeta.IAtlasMeta;
 
 	import flash.display.BitmapData;
 import flash.filesystem.File;
@@ -56,22 +57,6 @@ public class AtlasData
 		_meta.writeFrameAttr(frame, rect, name);
 	}
 
-/*	public function renderFrames(frames:AllocatedFrames, prefix:String):void
-	{
-		frames.drawToBitmap(_bitmapData);
-		if (frames.count == 1)
-		{
-			writeFrameAttr(frames.getFrame(0), frames.getRect(0), prefix);
-		}
-		else
-		{
-			for (var i:int = 0; i < frames.count; i++)
-			{
-				writeFrameAttr(frames.getFrame(i), frames.getRect(i), prefix + UString.prefixZero(i, 3));
-			}
-		}
-	}*/
-
 	public function write(folder:File, fileName:String):void
 	{
 		var textureFileName:String = fileName + ".png";
@@ -83,11 +68,8 @@ public class AtlasData
 		stream.writeUTFBytes(_meta.meta);
 		stream.close();
 
-		var png:PNGEncoder = new PNGEncoder();
 		var imageFile:File = folder.resolvePath("atlases/" + textureFileName);
-		stream.open(imageFile, FileMode.WRITE);
-		stream.writeBytes(png.encode(_bitmapData));
-		stream.close();
+		Utils.savePng(imageFile, _bitmapData);
 	}
 }
 }

@@ -121,6 +121,7 @@
 
 		private function writeData(outFolder:File):void
 		{
+			mouseChildren = false;
 			var fontsExporter:FontsExporter = new FontsExporter(AppModel.instance);
 
 			_model.project.outputPath = outFolder.nativePath;
@@ -135,6 +136,7 @@
 
 			fontsExporter.addEventListener(Event.COMPLETE, function ():void
 			{
+				mouseChildren = true;
 				Alert.show("DONE!");
 			});
 

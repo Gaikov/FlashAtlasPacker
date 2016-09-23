@@ -3,8 +3,9 @@
  * User: Roman
  * Date: 28.02.13
  */
-package com.grom.flashAtlasPacker
+package com.grom.flashAtlasPacker.utils
 {
+import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.MovieClip;
 import flash.filesystem.File;
@@ -14,6 +15,8 @@ import flash.utils.ByteArray;
 import flash.utils.getQualifiedClassName;
 
 import com.grom.lib.debug.Log;
+
+import mx.graphics.codec.PNGEncoder;
 
 public class Utils
 {
@@ -46,12 +49,33 @@ public class Utils
 		bytes.position = 0;
 		return bytes;
 	}
+
+	static public function readFileText(file:File):String
+	{
+		var bytes:ByteArray = readFile(file);
+		if (bytes)
+		{
+			bytes.position = 0;
+			return bytes.readUTFBytes(bytes.bytesAvailable);
+		}
+		return "";
+	}
 	
 	static public function writeFileText(file:File, data:String):void
 	{
 		var stream:FileStream = new FileStream();
 		stream.open(file, FileMode.WRITE);
 		stream.writeUTFBytes(data);
+		stream.close();
+	}
+
+	static public function savePng(imageFile:File, data:BitmapData):void
+	{
+		Log.info("...write png: ", imageFile.nativePath);
+		var png:PNGEncoder = new PNGEncoder();
+		var stream:FileStream = new FileStream();
+		stream.open(imageFile, FileMode.WRITE);
+		stream.writeBytes(png.encode(data));
 		stream.close();
 	}
 

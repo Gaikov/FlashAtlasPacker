@@ -5,7 +5,7 @@
  */
 package com.grom.flashAtlasPacker.complex
 {
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.Utils;
 
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;

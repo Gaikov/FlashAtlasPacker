@@ -12,7 +12,7 @@ import com.grom.ToolsCommon.project.BaseProject;
 import com.grom.ToolsCommon.project.FileNameProjectVariable;
 import com.grom.ToolsCommon.project.StringProjectVariable;
 import com.grom.ToolsCommon.swf.SWFUtils;
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.Utils;
 
 import flash.display.MovieClip;
 

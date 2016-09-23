@@ -5,7 +5,7 @@
  */
 package com.grom.flashAtlasPacker.generator.atlasSource
 {
-import com.grom.flashAtlasPacker.Utils;
+import com.grom.flashAtlasPacker.utils.Utils;
 import com.grom.flashAtlasPacker.cache.IRenderedObject;
 import com.grom.flashAtlasPacker.cache.rendered.RenderedButton;
 import com.grom.flashAtlasPacker.cache.rendered.RenderedMovie;
