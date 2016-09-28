@@ -4,15 +4,10 @@
 package com.grom.flashAtlasPacker.fonts
 {
 import com.grom.flashAtlasPacker.utils.Utils;
-import com.grom.lib.resources.customLoaders.BinaryLoader;
 import com.grom.lib.resources.customLoaders.BitmapLoader;
 
 import flash.display.BitmapData;
-
 import flash.events.Event;
-
-import flash.events.Event;
-
 import flash.events.EventDispatcher;
 import flash.filesystem.File;
 import flash.filters.BitmapFilter;
@@ -32,7 +27,7 @@ public class FontFiltersRenderer extends EventDispatcher
 		_outFolder = outFolder;
 	}
 
-	private function applyFilters():void
+	public function applyFilters():void
 	{
 		var fontFile:File = _outFolder.resolvePath(_font.name + ".fnt");
 		var meta:XML = new XML(Utils.readFileText(fontFile));
@@ -41,6 +36,8 @@ public class FontFiltersRenderer extends EventDispatcher
 		{
 			_texturesQueue.push(page.@file);
 		}
+
+		processNextTexture();
 	}
 
 	private function processNextTexture():void
@@ -63,6 +60,7 @@ public class FontFiltersRenderer extends EventDispatcher
 				}
 				Utils.savePng(imageFile, data);
 			}
+			processNextTexture();
 		});
 		loader.load();
 	}
