@@ -17,7 +17,7 @@ public class GlowFilterInfo implements IFilterInfo
 
 	public function get name():String
 	{
-		var res:String = "";
+		var res:String = "glow";
 		res += "_bx" + _filter.blurX;
 		res += "_by" + _filter.blurY;
 		res += "_a" + _filter.alpha;

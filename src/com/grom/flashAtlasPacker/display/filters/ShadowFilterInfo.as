@@ -24,8 +24,10 @@ public class ShadowFilterInfo implements IFilterInfo
 
 	public function get name():String
 	{
-		var res:String = "";
-		res += 
+		var res:String = "shad";
+		res += "_d" + _filter.distance;
+		res += "_an" + int(_filter.angle);
+		res += "_ho" + _filter.hideObject;
 		res += "_bx" + _filter.blurX;
 		res += "_by" + _filter.blurY;
 		res += "_a" + _filter.alpha;
@@ -51,7 +53,7 @@ public class ShadowFilterInfo implements IFilterInfo
 			return 0;
 		}
 
-		var p:Number = -_filter.blurX / 2 + _dirX;
+		var p:Number = -_filter.blurX + _dirX;
 		if (p > 0)
 		{
 			p = 0;
@@ -66,7 +68,7 @@ public class ShadowFilterInfo implements IFilterInfo
 			return 0;
 		}
 
-		var p:Number = _filter.blurX / 2 + _dirX;
+		var p:Number = _filter.blurX + _dirX;
 		if (p < 0)
 		{
 			p = 0;
@@ -81,7 +83,7 @@ public class ShadowFilterInfo implements IFilterInfo
 			return 0;
 		}
 
-		var p:Number = -_filter.blurY / 2 + _dirY;
+		var p:Number = -_filter.blurY + _dirY;
 		if (p > 0)
 		{
 			p = 0;
@@ -96,7 +98,7 @@ public class ShadowFilterInfo implements IFilterInfo
 			return 0;
 		}
 
-		var p:Number = _filter.blurY / 2 + _dirY;
+		var p:Number = _filter.blurY + _dirY;
 		if (p < 0)
 		{
 			p = 0;

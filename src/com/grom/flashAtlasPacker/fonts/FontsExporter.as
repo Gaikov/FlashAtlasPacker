@@ -135,11 +135,20 @@ public class FontsExporter extends EventDispatcher
 		return templateFile;
 	}
 
-
 	private function getFontName(font:String, size:int, color:uint, filters:Array):String
 	{
 		var name:String = font + "_" + size + "_" + color.toString(16);
-		name = name.replace(" ", "_");
+		name = name.replace(/\s/g, "_");
+
+		for each (var f:BitmapFilter in filters)
+		{
+			var info:IFilterInfo = _filterInfos.getFilterInfo(f);
+			if (info)
+			{
+				name += "_" + info.name;
+			}
+		}
+
 		return name;
 	}
 }

@@ -4,6 +4,7 @@
 package com.grom.flashAtlasPacker.fonts
 {
 import com.grom.flashAtlasPacker.utils.Utils;
+import com.grom.lib.graphics.bitmap.UBitmap;
 import com.grom.lib.resources.customLoaders.BitmapLoader;
 
 import flash.display.BitmapData;
@@ -54,6 +55,10 @@ public class FontFiltersRenderer extends EventDispatcher
 		{
 			if (data)
 			{
+				var colored:BitmapData = UBitmap.tint(data, _font.color);
+				data.dispose();
+				data = colored;
+
 				for each (var f:BitmapFilter in _font.filters)
 				{
 					data.applyFilter(data, new Rectangle(0, 0, data.width, data.height), new Point(0, 0), f);
