@@ -57,15 +57,18 @@ public class FontsExporter extends EventDispatcher
 		return name;
 	}
 	
-	public function export():void
+	public function export():Vector.<String>
 	{
+		var list:Vector.<String> = new <String>[];
 		Log.info("...exporting fonts to: ", _outPath.nativePath);
 		for each (var font:FontDesc in _fonts)
 		{
 			_exportQueue.push(font);
+			list.push(FONTS_FOLDER + "/" + font.name + ".fnt");
 		}
 
 		exportNextFont();
+		return list;
 	}
 
 	private function exportNextFont():void

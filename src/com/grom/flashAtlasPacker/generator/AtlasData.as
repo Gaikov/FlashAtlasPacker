@@ -57,12 +57,13 @@ public class AtlasData
 		_meta.writeFrameAttr(frame, rect, name);
 	}
 
-	public function write(folder:File, fileName:String):void
+	public function write(folder:File, fileName:String):String
 	{
 		var textureFileName:String = fileName + ".png";
+		var atlasFileName:String = "atlases/" + fileName + "." + _meta.fileExt;
 
 		_meta.textureFileName = textureFileName;
-		var xmlFile:File = folder.resolvePath("atlases/" + fileName + "." + _meta.fileExt);
+		var xmlFile:File = folder.resolvePath(atlasFileName);
 		var stream:FileStream = new FileStream();
 		stream.open(xmlFile, FileMode.WRITE);
 		stream.writeUTFBytes(_meta.meta);
@@ -70,6 +71,8 @@ public class AtlasData
 
 		var imageFile:File = folder.resolvePath("atlases/" + textureFileName);
 		Utils.savePng(imageFile, _bitmapData);
+
+		return atlasFileName;
 	}
 }
 }

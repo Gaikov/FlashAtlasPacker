@@ -12,6 +12,7 @@
 		import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 		import com.grom.flashAtlasPacker.generator.atlasSource.ObjectAtlasSource;
 		import com.grom.flashAtlasPacker.log.LogAreaAdapter;
+		import com.grom.flashAtlasPacker.project.AssetsManifest;
 		import com.grom.flashAtlasPacker.project.AtlasProject;
 		import com.grom.flashAtlasPacker.project.ParticlesModel;
 		import com.grom.flashAtlasPacker.project.ProjectFile;
@@ -122,13 +123,14 @@
 		private function writeData(outFolder:File):void
 		{
 			mouseChildren = false;
+			var assets:AssetsManifest = new AssetsManifest();
 			var fontsExporter:FontsExporter = new FontsExporter(AppModel.instance);
 
 			_model.project.outputPath = outFolder.nativePath;
 			var index:int = 0;
 			for each (var atlas:AtlasData in _atlasList)
 			{
-				atlas.write(outFolder, "atlas" + UString.prefixZero(index, 2));
+				assets.addAtlas(atlas.write(outFolder, "atlas" + UString.prefixZero(index, 2)));
 				index++;
 			}
 			ContainerLayoutBuilder.saveClasses(outFolder, _model.project.selectedClasses, fontsExporter);
@@ -140,7 +142,12 @@
 				Alert.show("DONE!");
 			});
 
-			fontsExporter.export();
+			var fonts:Vector.<String> = fontsExporter.export();
+			for each (var f:String in fonts)
+			{
+				assets.addFont(f);
+			}
+			assets.write(outFolder);
 		}
 
 		private function onAddParticles():void
