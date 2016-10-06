@@ -2,7 +2,7 @@
 <s:WindowedApplication
 		xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark"
-		applicationComplete="onCreate()">
+		applicationComplete="onCreate()" title="SWF Texture Packer {_model.projectFile}">
 	<fx:Script><![CDATA[
 		import com.grom.flashAtlasPacker.complex.ContainerLayoutBuilder;
 		import com.grom.flashAtlasPacker.fonts.FontsExporter;
@@ -196,7 +196,6 @@
 			<s:Button label="Open project..." click="ProjectFile.openProject()"/>
 			<s:Button label="Save project..." enabled="{_model.project.modified}"
 			          click="ProjectFile.saveProject(_model.project)"/>
-			<s:Label text="{_model.projectFile}"/>
 			<s:HGroup width="100%" horizontalAlign="right">
 				<s:Button id="buttonSettings" label="Settings..."/>
 			</s:HGroup>

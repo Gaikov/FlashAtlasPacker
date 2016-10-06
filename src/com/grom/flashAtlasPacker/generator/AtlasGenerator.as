@@ -8,17 +8,14 @@ package com.grom.flashAtlasPacker.generator
 import com.grom.flashAtlasPacker.area.AreasAllocator;
 import com.grom.flashAtlasPacker.cache.DisplayObjectsCache;
 import com.grom.flashAtlasPacker.cache.IRenderedObject;
-	import com.grom.flashAtlasPacker.generator.atlasMeta.AtlasJsonMeta;
-	import com.grom.flashAtlasPacker.generator.atlasMeta.AtlasStarlingMeta;
-	import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
-
-	import flash.display.BitmapData;
-
-	import flash.geom.Point;
-
+import com.grom.flashAtlasPacker.generator.atlasMeta.AtlasJsonMeta;
+import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 import com.grom.lib.debug.Log;
-
+import com.grom.lib.utils.UMath;
 import com.grom.lib.utils.UString;
+
+import flash.display.BitmapData;
+import flash.geom.Point;
 
 public class AtlasGenerator
 {
@@ -128,23 +125,19 @@ public class AtlasGenerator
 		var size:uint = Math.max(Math.sqrt(totalPixels), minSize);
 		Log.info("computed size: " + size);
 
-		var power:int = 1;
-		while(power < size)
-			power*=2;
+		size = UMath.closestPOT(size);
 
-		Log.info("power of two: " + power);
-		return new Point(power, power);
+		Log.info("power of two: " + size);
+		return new Point(size, size);
 	}
 
 }
 }
 
 import com.grom.flashAtlasPacker.area.AreasAllocator;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 import flash.geom.Rectangle;
-
-import com.grom.lib.debug.Log;
-import com.grom.lib.graphics.bitmap.CachedFrame;
 
 class SortFrameEntry
 {

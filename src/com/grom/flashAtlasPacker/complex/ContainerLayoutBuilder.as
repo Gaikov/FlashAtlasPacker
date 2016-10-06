@@ -75,7 +75,7 @@ public class ContainerLayoutBuilder
 			for (var i:int = 0; i < c.numChildren; i++)
 			{
 				var child:DisplayObject = c.getChildAt(i);
-				if (!UDisplay.isDefaultName(child))
+				if (!UDisplay.isDefaultName(child) || !(obj is TextField))
 				{
 					return true;
 				}

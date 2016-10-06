@@ -10,6 +10,7 @@ import com.grom.flashAtlasPacker.display.filters.FiltersInfoManager;
 import com.grom.flashAtlasPacker.display.filters.IFilterInfo;
 import com.grom.flashAtlasPacker.utils.Utils;
 import com.grom.lib.debug.Log;
+import com.grom.lib.utils.UMath;
 import com.grom.sys.ProcessRunner;
 
 import flash.events.Event;
@@ -133,6 +134,17 @@ public class FontsExporter extends EventDispatcher
 		template = template.replace("${paddingRight}", paddingRight);
 		template = template.replace("${paddingUp}", paddingTop);
 		template = template.replace("${paddingDown}", paddingBottom);
+
+		var aproxCharWidth:int = font.size / 2 + paddingLeft + paddingRight;
+		var aproxCharHeight:int = font.size / 2 + paddingTop + paddingBottom;
+		Log.info("approximate character size: ", aproxCharWidth, "x", aproxCharHeight);
+
+		var numPixels:int = aproxCharHeight * aproxCharWidth * 128; //128 chars, TODO: make font configurable
+		var textureSize:uint = UMath.closestPOT(Math.sqrt(numPixels));
+		Log.info("font texture size: ", textureSize);
+
+		template = template.replace("${width}", textureSize);
+		template = template.replace("${height}", textureSize);
 
 		Utils.writeFileText(templateFile, template);
 		return templateFile;

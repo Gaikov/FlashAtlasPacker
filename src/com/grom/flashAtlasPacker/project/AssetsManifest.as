@@ -12,7 +12,7 @@ public class AssetsManifest
 {
 	private var _atlases:Array = [];
 	private var _fonts:Array = [];
-	private var _layouts:Array = ["layout.xml"]; //reserved for future
+	private var _layouts:Array = ["layouts.xml"]; //reserved for future
 
 	public function AssetsManifest()
 	{
