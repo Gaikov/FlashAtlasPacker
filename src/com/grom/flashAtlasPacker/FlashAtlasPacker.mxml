@@ -41,7 +41,7 @@
 		{
 			Log.addAdapter(new LogAreaAdapter(logArea));
 
-			_context = new Context().install(MVCSBundle).configure(AppConfig).configure(new ContextView(stage));
+			_context = new Context().install(MVCSBundle).configure(AtlasPackerConfig).configure(new ContextView(stage));
 		}
 
 		private function onClickLoadSWF():void
@@ -185,7 +185,6 @@
 				resultView.source = _atlasList[_currentAtlas].bitmapData;
 			}
 		}
-
 		]]></fx:Script>
 
 	<s:VGroup width="100%" height="100%">

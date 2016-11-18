@@ -12,7 +12,7 @@ import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
 import robotlegs.bender.framework.api.IConfig;
 import robotlegs.bender.framework.api.IInjector;
 
-public class AppConfig implements IConfig
+public class AtlasPackerConfig implements IConfig
 {
 	[Inject]
 	public var injector : IInjector;
@@ -26,7 +26,7 @@ public class AppConfig implements IConfig
 	[Inject]
 	public var contextView : ContextView;
 	
-	public function AppConfig()
+	public function AtlasPackerConfig()
 	{
 	}
 

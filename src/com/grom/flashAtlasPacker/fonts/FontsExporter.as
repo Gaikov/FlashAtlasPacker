@@ -28,16 +28,17 @@ public class FontsExporter extends EventDispatcher
 
 	private var _template:String;
 	private var _outPath:File;
-	private var _model:AppModel;
 	private var _filterInfos:FiltersInfoManager = new FiltersInfoManager();
+	private var _bmFontExec:String;
 
-	public function FontsExporter(model:AppModel)
+	public function FontsExporter(outputPath:String, bmFontExec:String)
 	{
-		_model = model;
+		_bmFontExec = bmFontExec;
+
 		var file:File = File.applicationDirectory.resolvePath(TEMPLATE_FILE);
 		_template = FileUtils.readUTFBytesFromFile(file);
 
-		_outPath = new File(_model.project.outputPath);
+		_outPath = new File(outputPath);
 		_outPath = _outPath.resolvePath(FONTS_FOLDER);
 
 		if (_outPath.exists && _outPath.isDirectory)
@@ -86,7 +87,7 @@ public class FontsExporter extends EventDispatcher
 
 		var templateFile:File = prepareFontTemplate(font);
 
-		var bmfont:ProcessRunner = new ProcessRunner(new File(_model.bmFontFile), _outPath);
+		var bmfont:ProcessRunner = new ProcessRunner(new File(_bmFontExec), _outPath);
 		bmfont.addEventListener(Event.COMPLETE, function ():void
 		{
 			var filtersRenderer:FontFiltersRenderer = new FontFiltersRenderer(font, _outPath);
