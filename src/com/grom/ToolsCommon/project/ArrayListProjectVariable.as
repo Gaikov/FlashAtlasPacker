@@ -32,6 +32,7 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 
 	final override public function makeXML(projectFile:File):XML
 	{
+		modified = false;
 		var res:XML = <{nodeName}></{nodeName}>;
 
 		var arr:Array = _list.toArray();
@@ -43,7 +44,7 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 		return res;
 	}
 
-	protected function itemToXML(item:*):XML
+	protected function itemToXML(item:*):XML //TODO: make IItemSerializer and DefaultItemSerializer
 	{
 		return <item>{item.toString()}</item>;
 	}
@@ -61,7 +62,7 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 		{
 			_list.addItem(xmlToItem(xml));
 		}
-
+		modified = false;
 		return true;
 	}
 

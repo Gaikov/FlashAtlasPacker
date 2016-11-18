@@ -29,6 +29,8 @@ public class FlashFontsConfig implements IConfig
 
 	public function configure():void
 	{
+		injector.map(FlashFontsModel).asSingleton();
+		
 		mediatorMap.map(FlashFontsExporter).toMediator(FlashFontsMediator);
 	}
 }

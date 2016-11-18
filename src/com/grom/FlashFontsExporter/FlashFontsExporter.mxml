@@ -11,6 +11,9 @@
 		import robotlegs.bender.framework.api.IContext;
 		import robotlegs.bender.framework.impl.Context;
 
+		[Bindable]
+		public var _model:FlashFontsModel;
+
 		private var _context:IContext;
 
 		private function onCreate():void
@@ -18,4 +21,19 @@
 			_context = new Context().install(MVCSBundle).configure(FlashFontsConfig).configure(new ContextView(stage));
 		}
 		]]></fx:Script>
+
+<s:VGroup width="100%" height="100%" padding="10">
+	<s:HGroup verticalAlign="middle">
+		<s:Button id="buttonNew" label="New..."/>
+		<s:Button id="buttonLoad" label="Load..."/>
+		<s:Button id="buttonSave" label="Save..." enabled="{_model.fileName != null &amp;&amp; _model.modified}"/>
+		<s:TextInput editable="false" text="{_model.fileName}"/>
+	</s:HGroup>
+
+	<s:HGroup verticalAlign="middle">
+		<s:Label text="SWF path:"/>
+		<s:TextInput editable="false" text="{_model.swfPath}"/>
+	</s:HGroup>
+</s:VGroup>
+
 </s:WindowedApplication>

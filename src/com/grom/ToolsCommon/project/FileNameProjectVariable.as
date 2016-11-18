@@ -20,15 +20,15 @@ public class FileNameProjectVariable extends StringProjectVariable
 
 	override public function makeXML(projectFile:File):XML
 	{
-		validate();
+		modified = false;
 		return <{nodeName}>{Utils.getRelativePath(value, projectFile)}</{nodeName}>;
 	}
 
 	override public function readXML(source:XML, projectFile:File):Boolean
 	{
 		var fileName:String = String(source);
-		value = Utils.resolvePath(fileName, projectFile);
-		validate();
+		value = projectFile.parent.resolvePath(fileName);
+		modified = false;
 		return true;
 	}
 }

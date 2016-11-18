@@ -31,6 +31,25 @@ public class BaseProject extends EventDispatcher
 	final protected function registerProjectVariable(v:BaseProjectVariable):void
 	{
 		_vars.push(v);
+		v.addEventListener(ProjectVarEvent.MODIFICATION_CHANGED, onVarChanged);
+	}
+
+	private function onVarChanged(event:ProjectVarEvent):void
+	{
+		dispatchEvent(new Event("modificationChanged"));
+	}
+
+	[Bindable (event="modificationChanged")]
+	public function get modified():Boolean
+	{
+		for each (var v:BaseProjectVariable in _vars)
+		{
+			if (v.modified)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	[Bindable (event="FileNameChangedEvent")]

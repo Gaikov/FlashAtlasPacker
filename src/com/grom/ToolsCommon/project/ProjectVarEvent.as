@@ -11,6 +11,8 @@ import flash.events.Event;
 
 public class ProjectVarEvent extends Event
 {
+	static public const MODIFICATION_CHANGED:String = "modificationChanged";
+
 	public function ProjectVarEvent(type:String)
 	{
 		super(type);

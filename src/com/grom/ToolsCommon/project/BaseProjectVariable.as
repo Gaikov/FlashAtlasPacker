@@ -7,7 +7,6 @@
  */
 package com.grom.ToolsCommon.project
 {
-import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.filesystem.File;
 
@@ -26,7 +25,15 @@ public class BaseProjectVariable extends EventDispatcher
 		return _nodeName;
 	}
 
-	[Bindable (event="VarChangedEvent")]
+	public function set modified(value:Boolean):void
+	{
+		if (_modified != value)
+		{
+			_modified = value;
+			dispatchEvent(new ProjectVarEvent(ProjectVarEvent.MODIFICATION_CHANGED));
+		}
+	}
+
 	final public function get modified():Boolean
 	{
 		return _modified;
@@ -51,18 +58,6 @@ public class BaseProjectVariable extends EventDispatcher
 	public function set value(v:*):void
 	{
 		throw new Error("Need override setter");
-	}
-
-	final protected function invalidate():void
-	{
-		dispatchEvent(new Event("VarChangedEvent"));
-		_modified = true;
-	}
-
-	final protected function validate():void
-	{
-		dispatchEvent(new Event("VarChangedEvent"));
-		_modified = false;
 	}
 }
 }

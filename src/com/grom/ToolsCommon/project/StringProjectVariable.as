@@ -21,14 +21,14 @@ public class StringProjectVariable extends BaseProjectVariable
 
 	override public function makeXML(projectFile:File):XML
 	{
-		validate();
+		modified = false;
 		return <{nodeName}>{_value}</{nodeName}>;
 	}
 
 	override public function readXML(source:XML, projectFile:File):Boolean
 	{
 		_value = String(source);
-		validate();
+		modified = false;
 		return true;
 	}
 
@@ -43,7 +43,7 @@ public class StringProjectVariable extends BaseProjectVariable
 		if (_value != v)
 		{
 			_value = v;
-			invalidate();
+			modified = true;
 		}
 	}
 }
