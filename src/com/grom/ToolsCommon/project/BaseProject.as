@@ -77,6 +77,12 @@ public class BaseProject extends EventDispatcher
 		Log.info("loading project: ", fileName);
 
 		var file:File = new File(_fileName.value);
+		if (!file.exists)
+		{
+			fileName = "";
+			return;
+		}
+
 		var bytes:ByteArray = Utils.readFile(file);
 		if (!bytes)
 		{

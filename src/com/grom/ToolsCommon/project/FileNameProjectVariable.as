@@ -27,7 +27,7 @@ public class FileNameProjectVariable extends StringProjectVariable
 	override public function readXML(source:XML, projectFile:File):Boolean
 	{
 		var fileName:String = String(source);
-		value = projectFile.parent.resolvePath(fileName);
+		value = projectFile.parent.resolvePath(fileName).nativePath;
 		modified = false;
 		return true;
 	}

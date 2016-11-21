@@ -9,8 +9,8 @@ import com.grom.ToolsCommon.project.StringProjectVariable;
 
 public class FlashFontsModel extends BaseProject
 {
-	private var _swfPath:StringProjectVariable = new FileNameProjectVariable("swf_path");
-	private var _fontScale:StringProjectVariable = new StringProjectVariable("font_scale", "");
+	private var _swfPath:FileNameProjectVariable = new FileNameProjectVariable("swf_path");
+	private var _fontScale:StringProjectVariable = new StringProjectVariable("font_scale", "1");
 	private var _fontsTextureSize:StringProjectVariable = new StringProjectVariable("font_texture_size", "1");
 	private var _outputPath:StringProjectVariable = new StringProjectVariable("output_path", "");
 
