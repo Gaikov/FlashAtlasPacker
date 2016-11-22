@@ -59,7 +59,7 @@
           <sdk name="ApacheFlex4.15" />
         </dependencies>
         <compiler-options />
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashAtlasPacker-app.xml" package-file-name="FlashFontsExporter">
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashFontsExporter-app.xml" package-file-name="FlashFontsExporter">
           <files-to-package>
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/resources" path-in-package="." />
           </files-to-package>

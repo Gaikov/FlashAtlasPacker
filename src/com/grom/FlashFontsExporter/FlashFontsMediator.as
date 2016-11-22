@@ -3,6 +3,8 @@
  */
 package com.grom.FlashFontsExporter
 {
+import com.grom.lib.debug.Log;
+
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filesystem.File;
@@ -32,8 +34,43 @@ public class FlashFontsMediator extends Mediator
 		view._model = model;
 
 		view.buttonSave.addEventListener(MouseEvent.CLICK, onClickSave);
+		view.buttonOpen.addEventListener(MouseEvent.CLICK, onClickOpen);
 		view.buttonBrowseSwf.addEventListener(MouseEvent.CLICK, onClickBrowseSwf);
+		view.fontScale.addEventListener(Event.CHANGE, function ():void
+		{
+			model.fontScale = view.fontScale.value;
+		});
+		view.buttonBrowseOutput.addEventListener(MouseEvent.CLICK, onClickBrowseOutput);
+		view.buttonGenerate.addEventListener(MouseEvent.CLICK, onClickGenerate);
+	}
 
+	private function onClickOpen(event:MouseEvent):void
+	{
+		var browseProject:File = new File();
+		browseProject.addEventListener(Event.SELECT, function ():void
+		{
+			model.fileName = browseProject.nativePath;
+			model.load();
+			view._model = null;
+			view._model = model;
+		});
+
+		browseProject.browseForOpen("Open SWF", [new FileFilter("Project files", "*.xml")]);
+	}
+
+	private function onClickGenerate(event:MouseEvent):void
+	{
+		Log.info("generation started...");
+	}
+
+	private function onClickBrowseOutput(event:MouseEvent):void
+	{
+		var browseOut:File = new File();
+		browseOut.addEventListener(Event.SELECT, function ():void
+		{
+			model.outputPath = browseOut.nativePath;
+		});
+		browseOut.browseForDirectory("Select output folder");
 	}
 
 	private function onClickBrowseSwf(event:MouseEvent):void

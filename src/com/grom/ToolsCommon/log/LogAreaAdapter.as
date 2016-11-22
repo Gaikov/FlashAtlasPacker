@@ -3,7 +3,7 @@
  * User: Roman
  * Date: 24.09.13
  */
-package com.grom.flashAtlasPacker.log
+package com.grom.ToolsCommon.log
 {
 import com.grom.lib.debug.ILogAdapter;
 

@@ -11,7 +11,7 @@
 		import com.grom.flashAtlasPacker.generator.atlasSource.ContainerAtlasSource;
 		import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 		import com.grom.flashAtlasPacker.generator.atlasSource.ObjectAtlasSource;
-		import com.grom.flashAtlasPacker.log.LogAreaAdapter;
+		import com.grom.ToolsCommon.log.LogAreaAdapter;
 		import com.grom.flashAtlasPacker.project.AssetsManifest;
 		import com.grom.flashAtlasPacker.project.AtlasProject;
 		import com.grom.flashAtlasPacker.project.ParticlesModel;
@@ -132,7 +132,7 @@
 			mouseChildren = false;
 
 			var assets:AssetsManifest = new AssetsManifest();
-			var fontsExporter:FontsExporter = new FontsExporter(AppModel.instance);
+			var fontsExporter:FontsExporter = new FontsExporter(_model.project.outputPath, _model.bmFontFile);
 
 			var index:int = 0;
 			for each (var atlas:AtlasData in _atlasList)
