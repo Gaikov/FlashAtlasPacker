@@ -45,6 +45,12 @@
 				<s:NumericStepper id="fontScale" value="{_model.fontScale}" width="200"
 				                  snapInterval="0.000000000000001" valueParseFunction="parseFloat"/>
 			</s:FormItem>
+			<s:FormItem label="BMFont path:">
+				<s:HGroup width="100%">
+					<s:TextInput editable="false" text="{_model.bmFontExec}" width="100%"/>
+					<s:Button id="buttonBmFont" label="Browse..."/>
+				</s:HGroup>
+			</s:FormItem>
 			<s:FormItem label="Output folder">
 				<s:HGroup width="100%">
 					<s:TextInput editable="false" text="{_model.outputPath}" width="100%"/>
@@ -57,7 +63,7 @@
 
 		<s:VGroup width="100%" horizontalAlign="center">
 			<s:Button id="buttonGenerate" label="Generate..."
-			          enabled="{_model.swfPath}"/>
+			          enabled="{_model.swfPath &amp;&amp; _model.bmFontExec}"/>
 		</s:VGroup>
 	</s:VGroup>
 

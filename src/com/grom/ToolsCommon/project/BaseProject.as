@@ -100,7 +100,7 @@ public class BaseProject extends EventDispatcher
 			}
 			else
 			{
-				Log.warning("variable not found: " + name);
+				Log.warning("project variable not found: " + name);
 			}
 		}
 

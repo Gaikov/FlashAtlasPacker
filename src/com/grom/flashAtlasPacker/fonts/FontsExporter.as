@@ -55,6 +55,7 @@ public class FontsExporter extends EventDispatcher
 		if (!desc)
 		{
 			_fonts[name] = new FontDesc(name, font, size, color, filters);
+			Log.info("font added for export: ", name);
 		}
 		return name;
 	}

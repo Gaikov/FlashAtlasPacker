@@ -7,8 +7,12 @@
  */
 package com.grom.ToolsCommon.swf
 {
+import com.grom.flashAtlasPacker.utils.Utils;
+import com.grom.lib.debug.Log;
+
 import flash.display.Loader;
 import flash.events.Event;
+import flash.filesystem.File;
 import flash.system.LoaderContext;
 import flash.utils.ByteArray;
 
@@ -44,6 +48,20 @@ public class SWFUtils
 		var list:Array = getDefinitionNames(bytes, false, true);
 		list.sort(0);
 		return list;
+	}
+
+	static public function loadClassesFromFile(file:File, onClassesLoaded:Function):void
+	{
+		Log.info("loading swf classes from:", file.nativePath);
+		var bytes:ByteArray = Utils.readFile(file);
+		if (!bytes)
+		{
+			onClassesLoaded(null);
+		}
+		else
+		{
+			loadClasses(bytes, onClassesLoaded);
+		}
 	}
 
 }
