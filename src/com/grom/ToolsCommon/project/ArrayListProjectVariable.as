@@ -7,6 +7,9 @@
  */
 package com.grom.ToolsCommon.project
 {
+import com.grom.ToolsCommon.project.array.DefaultArrayItemSerializer;
+import com.grom.ToolsCommon.project.array.IArrayItemSerializer;
+
 import flash.filesystem.File;
 
 import mx.collections.ArrayList;
@@ -14,20 +17,43 @@ import mx.collections.ArrayList;
 public class ArrayListProjectVariable extends BaseProjectVariable
 {
 	private var _list:ArrayList = new ArrayList();
+	private var _itemSerializer:IArrayItemSerializer;
 
-	public function ArrayListProjectVariable(nodeName:String)
+	public function ArrayListProjectVariable(nodeName:String, itemSerializer:IArrayItemSerializer)
 	{
 		super(nodeName);
+		if (itemSerializer)
+		{
+			_itemSerializer = itemSerializer
+		}
+		else
+		{
+			_itemSerializer = new DefaultArrayItemSerializer();
+		}
 	}
 
 	final public function addItem(item:*):void
 	{
 		_list.addItem(item);
+		modified = true;
 	}
 
 	final public function removeItem(item:*):void
 	{
 		_list.removeItem(item);
+		modified = true;
+	}
+
+	final public function findItem(predicate:Function):*
+	{
+		for each (var item:* in _list.source)
+		{
+			if (predicate(item))
+			{
+				return item;
+			}
+		}
+		return null;
 	}
 
 	final override public function makeXML(projectFile:File):XML
@@ -38,20 +64,10 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 		var arr:Array = _list.toArray();
 		for each (var item:* in arr)
 		{
-			res.appendChild(itemToXML(item));
+			res.appendChild(_itemSerializer.itemToXML(item));
 		}
 
 		return res;
-	}
-
-	protected function itemToXML(item:*):XML //TODO: make IItemSerializer and DefaultItemSerializer
-	{
-		return <item>{item.toString()}</item>;
-	}
-
-	protected function xmlToItem(xml:XML):*
-	{
-		return String(xml);
 	}
 
 	final override public function readXML(source:XML, projectFile:File):Boolean
@@ -60,7 +76,7 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 
 		for each (var xml:XML in source.*)
 		{
-			_list.addItem(xmlToItem(xml));
+			_list.addItem(_itemSerializer.xmlToItem(xml));
 		}
 		modified = false;
 		return true;

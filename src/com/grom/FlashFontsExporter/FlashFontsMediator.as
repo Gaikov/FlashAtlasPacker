@@ -3,8 +3,9 @@
  */
 package com.grom.FlashFontsExporter
 {
+import com.grom.FlashFontsExporter.mapping.SelectedFont;
 import com.grom.ToolsCommon.swf.SWFUtils;
-import com.grom.flashAtlasPacker.fonts.FontsExporter;
+import com.grom.flashAtlasPacker.fonts.FontDesc;
 import com.grom.lib.debug.Log;
 import com.grom.lib.utils.UDisplay;
 
@@ -25,6 +26,8 @@ public class FlashFontsMediator extends Mediator
 
 	[Inject]
 	public var model:FlashFontsModel;
+
+	private var _loadedFontsMap:Object = {};
 
 	public function FlashFontsMediator()
 	{
@@ -49,6 +52,10 @@ public class FlashFontsMediator extends Mediator
 		});
 		view.buttonBrowseOutput.addEventListener(MouseEvent.CLICK, onClickBrowseOutput);
 		view.buttonGenerate.addEventListener(MouseEvent.CLICK, onClickGenerate);
+
+		view.fontsList.dataProvider = model.selectedFontsList.value;
+
+		loadFontsList();
 	}
 
 	private function onClickBrowseBMFont(event:MouseEvent):void
@@ -80,9 +87,23 @@ public class FlashFontsMediator extends Mediator
 	{
 		Log.info("generation started...");
 		
-		var exporter:FontsExporter = new FontsExporter(model.outputPath, model.bmFontExec);
+		//var exporter:FontsExporter = new FontsExporter(model.outputPath, model.bmFontExec);
+	}
+
+	private function loadFontsList():void
+	{
+		if (!model.swfPath)
+		{
+			return;
+		}
 
 		var swfFile:File = new File(model.swfPath);
+		if (!swfFile.exists)
+		{
+			return;
+		}
+
+		Log.info("loading fonts list...");
 		SWFUtils.loadClassesFromFile(swfFile, function (map:Object):void
 		{
 			if (map)
@@ -95,17 +116,23 @@ public class FlashFontsMediator extends Mediator
 						if (field)
 						{
 							Log.info("process textfield: ", child.name);
-
-
 							var format:TextFormat = field.getTextFormat();
-							exporter.registerFont(format.font, Math.round(int(format.size) * model.fontScale), uint(format.color), field.filters);
+							var desc:FontDesc = new FontDesc(format.font, Math.round(int(format.size) * model.fontScale), uint(format.color), field.filters);
+							_loadedFontsMap[desc.id] = desc;
+							if (!model.selectedFontsList.findItem(function (font:SelectedFont):Boolean
+									{
+										return font.id == desc.id;
+									}))
+							{
+								model.selectedFontsList.addItem(new SelectedFont(desc.id, desc.id));
+							}
 						}
 						return true;
 					});
 				}
-				exporter.export();
 			}
 		});
+
 	}
 
 	private function onClickBrowseOutput(event:MouseEvent):void
@@ -124,6 +151,7 @@ public class FlashFontsMediator extends Mediator
 		browseSwf.addEventListener(Event.SELECT, function ():void
 		{
 			model.swfPath = browseSwf.nativePath;
+			loadFontsList();
 		});
 
 		browseSwf.browseForOpen("Open SWF", [new FileFilter("SWF file", "*.swf")]);

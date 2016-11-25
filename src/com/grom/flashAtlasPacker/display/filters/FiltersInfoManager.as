@@ -14,6 +14,17 @@ public class FiltersInfoManager
 {
 	private var _infosMap:Dictionary = new Dictionary();
 
+	private static var _instance:FiltersInfoManager;
+
+	public static function get instance():FiltersInfoManager
+	{
+		if (!_instance)
+		{
+			_instance = new FiltersInfoManager();
+		}
+		return _instance;
+	}
+
 	public function FiltersInfoManager()
 	{
 		_infosMap[GlowFilter] = GlowFilterInfo;

@@ -30,7 +30,7 @@ public class FontFiltersRenderer extends EventDispatcher
 
 	public function applyFilters():void
 	{
-		var fontFile:File = _outFolder.resolvePath(_font.name + ".fnt");
+		var fontFile:File = _outFolder.resolvePath(_font.id + ".fnt");
 		var meta:XML = new XML(Utils.readFileText(fontFile));
 
 		for each (var page:XML in meta.pages.page)

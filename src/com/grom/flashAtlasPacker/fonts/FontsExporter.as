@@ -28,7 +28,6 @@ public class FontsExporter extends EventDispatcher
 
 	private var _template:String;
 	private var _outPath:File;
-	private var _filterInfos:FiltersInfoManager = new FiltersInfoManager();
 	private var _bmFontExec:String;
 
 	public function FontsExporter(outputPath:String, bmFontExec:String)
@@ -48,16 +47,14 @@ public class FontsExporter extends EventDispatcher
 		_outPath.createDirectory();
 	}
 
-	public function registerFont(font:String, size:int, color:uint, filters:Array):String
+	public function registerFont(desc:FontDesc):void
 	{
-		var name:String = getFontName(font, size, color, filters);
-		var desc:FontDesc = _fonts[name];
+		var desc:FontDesc = _fonts[desc.id];
 		if (!desc)
 		{
-			_fonts[name] = new FontDesc(name, font, size, color, filters);
-			Log.info("font added for export: ", name);
+			_fonts[desc.id] = desc;
+			Log.info("font added for export: ", desc.id);
 		}
-		return name;
 	}
 	
 	public function export():Vector.<String>
@@ -67,7 +64,7 @@ public class FontsExporter extends EventDispatcher
 		for each (var font:FontDesc in _fonts)
 		{
 			_exportQueue.push(font);
-			list.push(FONTS_FOLDER + "/" + font.name + ".fnt");
+			list.push(FONTS_FOLDER + "/" + font.id + ".fnt");
 		}
 
 		exportNextFont();
@@ -84,7 +81,7 @@ public class FontsExporter extends EventDispatcher
 			return;
 		}
 
-		Log.info("exporting: ", font.name);
+		Log.info("exporting: ", font.id);
 
 		var templateFile:File = prepareFontTemplate(font);
 
@@ -103,7 +100,7 @@ public class FontsExporter extends EventDispatcher
 		args.push("-c");
 		args.push(templateFile.nativePath);
 		args.push("-o");
-		args.push(font.name + ".fnt");
+		args.push(font.fileName + ".fnt");
 
 		bmfont.run(args);
 	}
@@ -124,7 +121,7 @@ public class FontsExporter extends EventDispatcher
 
 		for each (var filter:BitmapFilter in font.filters)
 		{
-			var info:IFilterInfo = _filterInfos.getFilterInfo(filter);
+			var info:IFilterInfo = FiltersInfoManager.instance.getFilterInfo(filter);
 
 			paddingLeft += info.paddingLeft;
 			paddingRight += info.paddingRight;
@@ -152,22 +149,7 @@ public class FontsExporter extends EventDispatcher
 		return templateFile;
 	}
 
-	private function getFontName(font:String, size:int, color:uint, filters:Array):String
-	{
-		var name:String = font + "_" + size + "_" + color.toString(16);
-		name = name.replace(/\s/g, "_");
 
-		for each (var f:BitmapFilter in filters)
-		{
-			var info:IFilterInfo = _filterInfos.getFilterInfo(f);
-			if (info)
-			{
-				name += "_" + info.name;
-			}
-		}
-
-		return name;
-	}
 }
 }
 

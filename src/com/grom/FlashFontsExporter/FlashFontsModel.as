@@ -3,6 +3,8 @@
  */
 package com.grom.FlashFontsExporter
 {
+import com.grom.FlashFontsExporter.mapping.SelectedFontSerializer;
+import com.grom.ToolsCommon.project.ArrayListProjectVariable;
 import com.grom.ToolsCommon.project.BaseProject;
 import com.grom.ToolsCommon.project.FileNameProjectVariable;
 import com.grom.ToolsCommon.project.StringProjectVariable;
@@ -15,6 +17,7 @@ public class FlashFontsModel extends BaseProject
 	private var _bmFontExec:UserVar = new UserVar("bm_font_exec", "");
 	//private var _fontsTextureSize:StringProjectVariable = new StringProjectVariable("font_texture_size", "1");
 	private var _outputPath:StringProjectVariable = new FileNameProjectVariable("output_path");
+	private var _selectedFontsList:ArrayListProjectVariable = new ArrayListProjectVariable("selected_fonts", new SelectedFontSerializer());
 
 
 	public function FlashFontsModel()
@@ -23,7 +26,9 @@ public class FlashFontsModel extends BaseProject
 		registerProjectVariable(_fontScale);
 		//registerProjectVariable(_fontsTextureSize);
 		registerProjectVariable(_outputPath);
+		registerProjectVariable(_selectedFontsList);
 	}
+
 	[Bindable]
 	public function get bmFontExec():String
 	{
@@ -66,6 +71,11 @@ public class FlashFontsModel extends BaseProject
 	public function set outputPath(value:String):void
 	{
 		_outputPath.value = value;
+	}
+
+	public function get selectedFontsList():ArrayListProjectVariable
+	{
+		return _selectedFontsList;
 	}
 }
 }
