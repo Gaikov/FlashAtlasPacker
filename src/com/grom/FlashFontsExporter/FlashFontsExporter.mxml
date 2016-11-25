@@ -62,9 +62,14 @@
 
 		<mx:VDividedBox width="100%" height="100%">
 
-			<s:HGroup width="100%" height="100%">
+			<mx:HDividedBox width="100%" height="100%">
 				<s:List id="fontsList" width="300" height="100%" labelField="id"/>
-			</s:HGroup>
+
+				<s:VGroup width="100%" height="100%">
+					<s:Label id="labelSampleText" text="Sample Text"/>
+
+				</s:VGroup>
+			</mx:HDividedBox>
 
 			<s:TextArea id="logArea" width="100%" height="100%"/>
 		</mx:VDividedBox>
