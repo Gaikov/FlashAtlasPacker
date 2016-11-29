@@ -19,6 +19,8 @@ import flash.text.TextFormat;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
+import spark.events.IndexChangeEvent;
+
 public class FlashFontsMediator extends Mediator
 {
 	[Inject]
@@ -54,8 +56,15 @@ public class FlashFontsMediator extends Mediator
 		view.buttonGenerate.addEventListener(MouseEvent.CLICK, onClickGenerate);
 
 		view.fontsList.dataProvider = model.selectedFontsList.value;
+		view.fontsList.addEventListener(IndexChangeEvent.CHANGE, onChangeSelectedFont);
 
 		loadFontsList();
+	}
+
+	private function onChangeSelectedFont(event:IndexChangeEvent):void
+	{
+		var selFont:SelectedFont = view.fontsList.selectedItem;
+		view.fontPreview.fontDesc = _loadedFontsMap[selFont.id];
 	}
 
 	private function onClickBrowseBMFont(event:MouseEvent):void
