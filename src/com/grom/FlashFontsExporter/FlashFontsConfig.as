@@ -3,6 +3,9 @@
  */
 package com.grom.FlashFontsExporter
 {
+import com.grom.FlashFontsExporter.mapping.SelectedFontMediator;
+import com.grom.FlashFontsExporter.mapping.SelectedFontRenderer;
+
 import robotlegs.bender.extensions.contextView.ContextView;
 import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
 import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
@@ -32,6 +35,7 @@ public class FlashFontsConfig implements IConfig
 		injector.map(FlashFontsModel).asSingleton();
 		
 		mediatorMap.map(FlashFontsExporter).toMediator(FlashFontsMediator);
+		mediatorMap.map(SelectedFontRenderer).toMediator(SelectedFontMediator);
 	}
 }
 }
