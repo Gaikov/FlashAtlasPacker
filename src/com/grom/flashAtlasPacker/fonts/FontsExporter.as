@@ -5,7 +5,6 @@ package com.grom.flashAtlasPacker.fonts
 {
 import air.update.utils.FileUtils;
 
-import com.grom.flashAtlasPacker.AppModel;
 import com.grom.flashAtlasPacker.display.filters.FiltersInfoManager;
 import com.grom.flashAtlasPacker.display.filters.IFilterInfo;
 import com.grom.flashAtlasPacker.utils.Utils;
@@ -49,8 +48,8 @@ public class FontsExporter extends EventDispatcher
 
 	public function registerFont(desc:FontDesc):void
 	{
-		var desc:FontDesc = _fonts[desc.id];
-		if (!desc)
+		var found:FontDesc = _fonts[desc.id];
+		if (!found)
 		{
 			_fonts[desc.id] = desc;
 			Log.info("font added for export: ", desc.id);
@@ -64,7 +63,7 @@ public class FontsExporter extends EventDispatcher
 		for each (var font:FontDesc in _fonts)
 		{
 			_exportQueue.push(font);
-			list.push(FONTS_FOLDER + "/" + font.id + ".fnt");
+			list.push(FONTS_FOLDER + "/" + font.fileName + ".fnt");
 		}
 
 		exportNextFont();
@@ -81,7 +80,7 @@ public class FontsExporter extends EventDispatcher
 			return;
 		}
 
-		Log.info("exporting: ", font.id);
+		Log.info("exporting: ", font.fileName);
 
 		var templateFile:File = prepareFontTemplate(font);
 

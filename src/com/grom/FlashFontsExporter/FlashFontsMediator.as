@@ -6,6 +6,7 @@ package com.grom.FlashFontsExporter
 import com.grom.FlashFontsExporter.mapping.SelectedFont;
 import com.grom.ToolsCommon.swf.SWFUtils;
 import com.grom.flashAtlasPacker.fonts.FontDesc;
+import com.grom.flashAtlasPacker.fonts.FontsExporter;
 import com.grom.lib.debug.Log;
 import com.grom.lib.utils.UDisplay;
 
@@ -17,7 +18,11 @@ import flash.net.FileFilter;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
+import mx.collections.ArrayList;
+
 import robotlegs.bender.bundles.mvcs.Mediator;
+
+import spark.components.Alert;
 
 import spark.events.IndexChangeEvent;
 
@@ -75,7 +80,7 @@ public class FlashFontsMediator extends Mediator
 			model.bmFontExec = bmFont.nativePath;
 		});
 
-		bmFont.browseForOpen("Select BMFont executable", [new FileFilter("Executable", "*.exe")]);		
+		bmFont.browseForOpen("Select BMFont executable", [new FileFilter("Executable", "*.exe")]);
 	}
 
 	private function onClickOpen(event:MouseEvent):void
@@ -95,8 +100,35 @@ public class FlashFontsMediator extends Mediator
 	private function onClickGenerate(event:MouseEvent):void
 	{
 		Log.info("generation started...");
-		
-		//var exporter:FontsExporter = new FontsExporter(model.outputPath, model.bmFontExec);
+
+		var exporter:FontsExporter = new FontsExporter(model.outputPath, model.bmFontExec);
+		var selectedFonts:ArrayList = model.selectedFontsList.value;
+
+		var count:int = 0;
+		for each (var selFont:SelectedFont in selectedFonts.source)
+		{
+			var desc:FontDesc = _loadedFontsMap[selFont.id] as FontDesc;
+			if (selFont.selected && desc)
+			{
+				desc.fileName = selFont.exportFileName;
+				exporter.registerFont(desc);
+				count++;
+			}
+		}
+
+		if (count > 0)
+		{
+			exporter.addEventListener(Event.COMPLETE, function ():void
+			{
+				view.buttonGenerate.enabled = true;
+			});
+			exporter.export();
+			view.buttonGenerate.enabled = false;
+		}
+		else
+		{
+			Alert.show("Please select fonts for export", "Warning", Alert.OK);
+		}
 	}
 
 	private function loadFontsList():void
