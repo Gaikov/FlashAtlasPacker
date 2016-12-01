@@ -43,7 +43,7 @@
         <packaging-android />
         <packaging-ios />
       </configuration>
-      <configuration name="FlashFontsExporter" target-platform="Desktop" main-class="com.grom.FlashFontsExporter.FlashFontsExporter" output-file="FlashFontsExporter.swf" output-folder="$MODULE_DIR$/build">
+      <configuration name="FlashBitmapFonts" target-platform="Desktop" main-class="com.grom.FlashFontsExporter.BitmapFontsExporter" output-file="FlashBitmapFonts.swf" output-folder="$MODULE_DIR$/build">
         <dependencies>
           <entries>
             <entry library-name="MainLibDependency" library-level="project">

@@ -26,17 +26,17 @@ import spark.components.Alert;
 
 import spark.events.IndexChangeEvent;
 
-public class FlashFontsMediator extends Mediator
+public class BitmapFontsMediator extends Mediator
 {
 	[Inject]
-	public var view:FlashFontsExporter;
+	public var view:BitmapFontsExporter;
 
 	[Inject]
-	public var model:FlashFontsModel;
+	public var model:FontsExporterModel;
 
 	private var _loadedFontsMap:Object = {};
 
-	public function FlashFontsMediator()
+	public function BitmapFontsMediator()
 	{
 	}
 
@@ -49,6 +49,7 @@ public class FlashFontsMediator extends Mediator
 		}
 		view._model = model;
 
+		view.buttonNew.addEventListener(MouseEvent.CLICK, onClickNew);
 		view.buttonSave.addEventListener(MouseEvent.CLICK, onClickSave);
 		view.buttonOpen.addEventListener(MouseEvent.CLICK, onClickOpen);
 		view.buttonBrowseSwf.addEventListener(MouseEvent.CLICK, onClickBrowseSwf);
@@ -64,6 +65,14 @@ public class FlashFontsMediator extends Mediator
 		view.fontsList.addEventListener(IndexChangeEvent.CHANGE, onChangeSelectedFont);
 
 		loadFontsList();
+	}
+
+	private function onClickNew(event:MouseEvent):void
+	{
+		Log.info("create new project");
+		view._model = null;
+		model.NewProject();
+		view._model = model;
 	}
 
 	private function onChangeSelectedFont(event:IndexChangeEvent):void
@@ -92,6 +101,7 @@ public class FlashFontsMediator extends Mediator
 			model.load();
 			view._model = null;
 			view._model = model;
+			loadFontsList();
 		});
 
 		browseProject.browseForOpen("Open SWF", [new FileFilter("Project files", "*.xml")]);

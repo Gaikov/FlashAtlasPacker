@@ -12,7 +12,7 @@ import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
 import robotlegs.bender.framework.api.IConfig;
 import robotlegs.bender.framework.api.IInjector;
 
-public class FlashFontsConfig implements IConfig
+public class FontsExporterConfig implements IConfig
 {
 	[Inject]
 	public var injector : IInjector;
@@ -26,15 +26,15 @@ public class FlashFontsConfig implements IConfig
 	[Inject]
 	public var contextView : ContextView;	
 	
-	public function FlashFontsConfig()
+	public function FontsExporterConfig()
 	{
 	}
 
 	public function configure():void
 	{
-		injector.map(FlashFontsModel).asSingleton();
+		injector.map(FontsExporterModel).asSingleton();
 		
-		mediatorMap.map(FlashFontsExporter).toMediator(FlashFontsMediator);
+		mediatorMap.map(BitmapFontsExporter).toMediator(BitmapFontsMediator);
 		mediatorMap.map(SelectedFontRenderer).toMediator(SelectedFontMediator);
 	}
 }

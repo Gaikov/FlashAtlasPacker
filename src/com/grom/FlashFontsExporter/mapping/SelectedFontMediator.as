@@ -3,7 +3,7 @@
  */
 package com.grom.FlashFontsExporter.mapping
 {
-import com.grom.FlashFontsExporter.FlashFontsModel;
+import com.grom.FlashFontsExporter.FontsExporterModel;
 
 import flash.events.Event;
 
@@ -15,7 +15,7 @@ public class SelectedFontMediator extends Mediator
 	public var view:SelectedFontRenderer;
 	
 	[Inject]
-	public var project:FlashFontsModel;
+	public var project:FontsExporterModel;
 	
 	public function SelectedFontMediator()
 	{

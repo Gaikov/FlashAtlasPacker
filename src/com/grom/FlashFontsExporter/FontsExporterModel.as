@@ -10,7 +10,7 @@ import com.grom.ToolsCommon.project.FileNameProjectVariable;
 import com.grom.ToolsCommon.project.StringProjectVariable;
 import com.grom.lib.settings.UserVar;
 
-public class FlashFontsModel extends BaseProject
+public class FontsExporterModel extends BaseProject
 {
 	private var _swfPath:FileNameProjectVariable = new FileNameProjectVariable("swf_path");
 	private var _fontScale:StringProjectVariable = new StringProjectVariable("font_scale", "1");
@@ -20,13 +20,21 @@ public class FlashFontsModel extends BaseProject
 	private var _selectedFontsList:ArrayListProjectVariable = new ArrayListProjectVariable("selected_fonts", new SelectedFontSerializer());
 
 
-	public function FlashFontsModel()
+	public function FontsExporterModel()
 	{
 		registerProjectVariable(_swfPath);
 		registerProjectVariable(_fontScale);
 		//registerProjectVariable(_fontsTextureSize);
 		registerProjectVariable(_outputPath);
 		registerProjectVariable(_selectedFontsList);
+	}
+
+	public function NewProject():void
+	{
+		fileName = "";
+		_swfPath.value = "";
+		_outputPath.value = "";
+		_selectedFontsList.clear();
 	}
 
 	[Bindable]

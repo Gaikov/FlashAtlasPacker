@@ -92,5 +92,11 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 	{
 		throw new Error("Can't set ArrayList directly!");
 	}
+
+	public function clear():void
+	{
+		_list.removeAll();
+		modified = true;
+	}
 }
 }

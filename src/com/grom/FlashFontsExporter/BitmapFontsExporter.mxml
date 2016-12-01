@@ -17,14 +17,14 @@
 		import robotlegs.bender.framework.impl.Context;
 
 		[Bindable]
-		public var _model:FlashFontsModel;
+		public var _model:FontsExporterModel;
 
 		private var _context:IContext;
 
 		private function onCreate():void
 		{
 			Log.addAdapter(new LogAreaAdapter(logArea));
-			_context = new Context().install(MVCSBundle).configure(FlashFontsConfig).configure(new ContextView(stage));
+			_context = new Context().install(MVCSBundle).configure(FontsExporterConfig).configure(new ContextView(stage));
 		}
 		]]></fx:Script>
 
