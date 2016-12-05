@@ -23,11 +23,17 @@ public class FontPreview extends UIComponent
 	
 	private var _textField:TextField = new TextField();
 	private var _fill:BitmapData;
+
+	private var _infoField:TextField = new TextField();
 	
 	public function FontPreview()
 	{
 		_textField.autoSize = TextFieldAutoSize.LEFT;
 		_fill = Bitmap(new _fillCells()).bitmapData;
+
+		_infoField.autoSize = TextFieldAutoSize.LEFT;
+		_infoField.x = 5;
+		_infoField.y = 5;
 	}
 
 	public function set text(value:String):void
@@ -41,9 +47,13 @@ public class FontPreview extends UIComponent
 	public function set fontDesc(font:FontDesc):void
 	{
 		UContainer.updatePresence(this, _textField, font != null);
+		UContainer.updatePresence(this, _infoField, font != null);
 
 		if (font)
 		{
+			_infoField.text = "Family: " + font.family;
+			_infoField.appendText("\nSize: " + font.size);
+
 			var format:TextFormat = _textField.getTextFormat();
 			format.font = font.family;
 			format.size = font.size;

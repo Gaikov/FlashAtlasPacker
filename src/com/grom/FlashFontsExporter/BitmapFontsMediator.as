@@ -15,6 +15,8 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filesystem.File;
 import flash.net.FileFilter;
+import flash.net.URLRequest;
+import flash.net.navigateToURL;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
@@ -53,6 +55,11 @@ public class BitmapFontsMediator extends Mediator
 		view.buttonSave.addEventListener(MouseEvent.CLICK, onClickSave);
 		view.buttonOpen.addEventListener(MouseEvent.CLICK, onClickOpen);
 		view.buttonBrowseSwf.addEventListener(MouseEvent.CLICK, onClickBrowseSwf);
+
+		view.buttonDownloadBmFont.addEventListener(MouseEvent.CLICK, function ():void
+		{
+			navigateToURL(new URLRequest("http://www.angelcode.com/products/bmfont/install_bmfont_1.13.exe"));
+		});
 		view.buttonBmFont.addEventListener(MouseEvent.CLICK, onClickBrowseBMFont);
 		view.fontScale.addEventListener(Event.CHANGE, function ():void
 		{
@@ -132,6 +139,7 @@ public class BitmapFontsMediator extends Mediator
 			{
 				view.buttonGenerate.enabled = true;
 			});
+			exporter.scale = model.fontScale;
 			exporter.export();
 			view.buttonGenerate.enabled = false;
 		}
@@ -168,7 +176,7 @@ public class BitmapFontsMediator extends Mediator
 						{
 							Log.info("process textfield: ", child.name);
 							var format:TextFormat = field.getTextFormat();
-							var desc:FontDesc = new FontDesc(format.font, Math.round(int(format.size) * model.fontScale), uint(format.color), field.filters);
+							var desc:FontDesc = new FontDesc(format.font, int(format.size), uint(format.color), field.filters);
 							_loadedFontsMap[desc.id] = desc;
 							if (!model.selectedFontsList.findItem(function (font:SelectedFont):Boolean
 									{
@@ -180,6 +188,16 @@ public class BitmapFontsMediator extends Mediator
 						}
 						return true;
 					});
+				}
+
+				var selectedList:ArrayList = model.selectedFontsList.value;
+				for (var i:int = selectedList.length-1; i >= 0; i--)
+				{
+					var selected:SelectedFont = SelectedFont(selectedList.getItemAt(i));
+					if (!_loadedFontsMap[selected.id])
+					{
+						selectedList.removeItemAt(i);
+					}
 				}
 			}
 		});
