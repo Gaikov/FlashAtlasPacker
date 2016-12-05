@@ -13,6 +13,6 @@ Use to export all flash fonts from .swf with filters to bitmap fonts.
 Fonts exporter uses BMFont as command line tool.
 
 latest release:
-https://github.com/Gaikov/FlashAtlasPacker/releases/download/flash_fonts_0.0.1/FlashFontsExporter.exe
+https://github.com/Gaikov/FlashAtlasPacker/releases/download/flash_fonts_0.0.2/FlashFontsExporter.exe
 
 Also download and install BMFont: http://www.angelcode.com/products/bmfont/
