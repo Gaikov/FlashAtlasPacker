@@ -28,6 +28,7 @@ public class FontsExporter extends EventDispatcher
 	private var _template:String;
 	private var _outPath:File;
 	private var _bmFontExec:String;
+	private var _scale:Number = 1;
 
 	public function FontsExporter(outputPath:String, bmFontExec:String)
 	{
@@ -44,6 +45,11 @@ public class FontsExporter extends EventDispatcher
 			_outPath.deleteDirectory(true);
 		}
 		_outPath.createDirectory();
+	}
+
+	public function set scale(value:Number):void
+	{
+		_scale = value;
 	}
 
 	public function registerFont(desc:FontDesc):void
@@ -109,9 +115,11 @@ public class FontsExporter extends EventDispatcher
 		var templateFile:File = File.createTempFile();
 		Log.info("prepare template: ", templateFile.nativePath);
 
+		var fontSize:int = Math.round(font.size * _scale);
+
 		var template:String = _template.concat();
 		template = template.replace("${font_family}", font.family);
-		template = template.replace("${font_size}", font.size);
+		template = template.replace("${font_size}", fontSize);
 
 		var paddingLeft:int = 0;
 		var paddingRight:int = 0;
@@ -133,8 +141,8 @@ public class FontsExporter extends EventDispatcher
 		template = template.replace("${paddingUp}", paddingTop);
 		template = template.replace("${paddingDown}", paddingBottom);
 
-		var aproxCharWidth:int = font.size / 2 + paddingLeft + paddingRight;
-		var aproxCharHeight:int = font.size / 2 + paddingTop + paddingBottom;
+		var aproxCharWidth:int = fontSize / 2 + paddingLeft + paddingRight;
+		var aproxCharHeight:int = fontSize / 2 + paddingTop + paddingBottom;
 		Log.info("approximate character size: ", aproxCharWidth, "x", aproxCharHeight);
 
 		var numPixels:int = aproxCharHeight * aproxCharWidth * 128; //128 chars, TODO: make font configurable

@@ -51,6 +51,7 @@
 			<s:FormItem label="BMFont path:">
 				<s:HGroup width="100%">
 					<s:TextInput editable="false" text="{_model.bmFontExec}" width="100%"/>
+					<s:Button id="buttonDownloadBmFont" label="Download..."/>
 					<s:Button id="buttonBmFont" label="Browse..."/>
 				</s:HGroup>
 			</s:FormItem>
