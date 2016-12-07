@@ -141,8 +141,8 @@ public class FontsExporter extends EventDispatcher
 		template = template.replace("${paddingUp}", paddingTop);
 		template = template.replace("${paddingDown}", paddingBottom);
 
-		var aproxCharWidth:int = fontSize / 2 + paddingLeft + paddingRight;
-		var aproxCharHeight:int = fontSize / 2 + paddingTop + paddingBottom;
+		var aproxCharWidth:int = fontSize + paddingLeft + paddingRight;
+		var aproxCharHeight:int = fontSize + paddingTop + paddingBottom;
 		Log.info("approximate character size: ", aproxCharWidth, "x", aproxCharHeight);
 
 		var numPixels:int = aproxCharHeight * aproxCharWidth * 128; //128 chars, TODO: make font configurable
