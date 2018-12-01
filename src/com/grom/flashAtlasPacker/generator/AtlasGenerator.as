@@ -9,6 +9,7 @@ import com.grom.flashAtlasPacker.area.AreasAllocator;
 import com.grom.flashAtlasPacker.cache.DisplayObjectsCache;
 import com.grom.flashAtlasPacker.cache.IRenderedObject;
 import com.grom.flashAtlasPacker.generator.atlasMeta.AtlasJsonMeta;
+import com.grom.flashAtlasPacker.generator.atlasMeta.AtlasStarlingMeta;
 import com.grom.flashAtlasPacker.generator.atlasSource.IAtlasSource;
 import com.grom.lib.debug.Log;
 import com.grom.lib.utils.UMath;
@@ -84,7 +85,7 @@ public class AtlasGenerator
 				size.y = _textureHeight;
 			}
 
-			var atlasData:AtlasData = new AtlasData(size.x, size.y, new AtlasJsonMeta());
+			var atlasData:AtlasData = new AtlasData(size.x, size.y, new AtlasStarlingMeta());
 			var allocator:AreasAllocator = new AreasAllocator(size.x, size.y);
 			var rest:Vector.<SortFrameEntry> = new Vector.<SortFrameEntry>();
 

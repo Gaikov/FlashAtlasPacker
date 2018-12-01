@@ -3,6 +3,7 @@
  */
 package com.grom.flashAtlasPacker.fonts
 {
+
 import air.update.utils.FileUtils;
 
 import com.grom.flashAtlasPacker.display.filters.FiltersInfoManager;
@@ -16,6 +17,8 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.filesystem.File;
 import flash.filters.BitmapFilter;
+
+import spark.components.Alert;
 
 public class FontsExporter extends EventDispatcher
 {
@@ -47,6 +50,11 @@ public class FontsExporter extends EventDispatcher
 		_outPath.createDirectory();
 	}
 
+	public function get isAllowedTool():Boolean
+	{
+		return com.grom.sys.FileUtils.isExists(_bmFontExec);
+	}
+
 	public function set scale(value:Number):void
 	{
 		_scale = value;
@@ -61,10 +69,16 @@ public class FontsExporter extends EventDispatcher
 			Log.info("font added for export: ", desc.id);
 		}
 	}
-	
+
 	public function export():Vector.<String>
 	{
 		var list:Vector.<String> = new <String>[];
+
+		if (!isAllowedTool) {
+			Alert.show("BM font tools does not specified.\n" +
+					"Bitmap fonts will not be exported!", "Warning");
+		}
+
 		Log.info("...exporting fonts to: ", _outPath.nativePath);
 		for each (var font:FontDesc in _fonts)
 		{

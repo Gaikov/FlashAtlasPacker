@@ -36,10 +36,13 @@ public class TextFieldExporter implements ILayoutExporter
 		xml.@fontSize = format.size;
 		xml.@color = uint(format.color).toString(16).toUpperCase();
 
-		var desc:FontDesc = new FontDesc(format.font, int(format.size), uint(format.color), field.filters);
-		_fontsExporter.registerFont(desc);
-		xml.@bitmapFont = desc.id;
-		
+		if (_fontsExporter.isAllowedTool)
+		{
+			var desc:FontDesc = new FontDesc(format.font, int(format.size), uint(format.color), field.filters);
+			_fontsExporter.registerFont(desc);
+			xml.@bitmapFont = desc.id;
+		}
+
 		delete xml["@class"];
 
 		return xml;

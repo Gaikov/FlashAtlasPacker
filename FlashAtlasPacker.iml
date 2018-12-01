@@ -5,17 +5,17 @@
       <configuration name="FlashAtlasPacker" target-platform="Desktop" main-class="com.grom.flashAtlasPacker.FlashAtlasPacker" output-file="FlashAtlasPacker.swf" output-folder="$MODULE_DIR$/build">
         <dependencies target-player="10.1">
           <entries>
-            <entry library-name="MainLibDependency" library-level="project">
-              <dependency linkage="Merged" />
-            </entry>
             <entry module-name="asLib" build-configuration-name="asLib">
               <dependency linkage="Merged" />
             </entry>
             <entry library-name="PackerLibs" library-level="project">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-name="libs" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
           </entries>
-          <sdk name="ApacheFlex4.15" />
+          <sdk name="apache-flex-sdk-4.16.1-air_25" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashAtlasPacker-app.xml" package-file-name="FlashAtlasPacker">
@@ -35,8 +35,11 @@
             <entry library-name="PackerLibs" library-level="project">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-name="libs" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
           </entries>
-          <sdk name="ApacheFlex4.15" />
+          <sdk name="apache-flex-sdk-4.16.1-air_25" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashLevelExporter-app.xml" package-file-name="FlashLevelExporter" />
@@ -46,17 +49,17 @@
       <configuration name="FlashBitmapFonts" target-platform="Desktop" main-class="com.grom.FlashFontsExporter.BitmapFontsExporter" output-file="FlashBitmapFonts.swf" output-folder="$MODULE_DIR$/build">
         <dependencies>
           <entries>
-            <entry library-name="MainLibDependency" library-level="project">
-              <dependency linkage="Merged" />
-            </entry>
             <entry module-name="asLib" build-configuration-name="asLib">
               <dependency linkage="Merged" />
             </entry>
             <entry library-name="PackerLibs" library-level="project">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-name="libs" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
           </entries>
-          <sdk name="ApacheFlex4.15" />
+          <sdk name="apache-flex-sdk-4.16.1-air_25" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashFontsExporter-app.xml" package-file-name="FlashFontsExporter">
@@ -76,10 +79,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resources" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="ApacheFlex4.15" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="apache-flex-sdk-4.16.1-air_25" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="asLib" exported="" />
     <orderEntry type="library" exported="" name="MainLibDependency" level="project" />
     <orderEntry type="library" exported="" name="PackerLibs" level="project" />
+    <orderEntry type="library" exported="" name="libs" level="project" />
+    <orderEntry type="module" module-name="asLib" exported="" />
   </component>
 </module>
