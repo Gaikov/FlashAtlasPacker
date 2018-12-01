@@ -85,7 +85,7 @@ public class AtlasGenerator
 				size.y = _textureHeight;
 			}
 
-			var atlasData:AtlasData = new AtlasData(size.x, size.y, new AtlasJsonMeta());
+			var atlasData:AtlasData = new AtlasData(size.x, size.y, new AtlasStarlingMeta());
 			var allocator:AreasAllocator = new AreasAllocator(size.x, size.y);
 			var rest:Vector.<SortFrameEntry> = new Vector.<SortFrameEntry>();
 
