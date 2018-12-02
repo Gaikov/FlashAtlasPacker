@@ -17,7 +17,7 @@ public class RenderedSprite implements IRenderedObject
 
 	public function RenderedSprite(sprite:DisplayObject)
 	{
-		_frame = CachedFrame.renderObject(sprite).trim();
+		_frame = CachedFrame.renderObject(sprite);
 	}
 
 	public function get numFrames():int

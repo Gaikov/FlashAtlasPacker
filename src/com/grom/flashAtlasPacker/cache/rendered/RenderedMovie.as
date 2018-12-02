@@ -18,7 +18,7 @@ public class RenderedMovie implements IRenderedObject
 
 	public function RenderedMovie(mc:MovieClip)
 	{
-		_frames = CachedMovieFrames.renderMovie(mc, true);
+		_frames = CachedMovieFrames.renderMovie(mc, false);
 	}
 
 	public function get numFrames():int
