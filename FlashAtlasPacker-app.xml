@@ -15,7 +15,7 @@
     <id>com.grom.flashAtlasPacker.FlashAtlasPacker.HR</id>
 
     <!-- Used as the filename for the application. Required. -->
-    <filename>FlashAtlasPacker</filename>
+    <filename>HeliumRushBuilder</filename>
 
     <!-- The name that is displayed in the AIR application installer. May have multiple values for each language. See samples or xsd schema file. Optional. -->
     <name>Helium Rush builder</name>

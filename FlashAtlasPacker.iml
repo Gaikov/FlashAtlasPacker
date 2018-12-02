@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="FlashAtlasPacker">
+  <component name="FlexBuildConfigurationManager" active="HeliumRushBuilder">
     <configurations>
-      <configuration name="FlashAtlasPacker" target-platform="Desktop" main-class="com.grom.flashAtlasPacker.FlashAtlasPacker" output-file="FlashAtlasPacker.swf" output-folder="$MODULE_DIR$/build">
+      <configuration name="HeliumRushBuilder" target-platform="Desktop" main-class="com.grom.flashAtlasPacker.FlashAtlasPacker" output-file="HeliumRushBuilder.swf" output-folder="$MODULE_DIR$/build">
         <dependencies target-player="10.1">
           <entries>
             <entry module-name="asLib" build-configuration-name="asLib">
@@ -15,7 +15,7 @@
           <sdk name="apache-flex-sdk-4.16.1-air_25" />
         </dependencies>
         <compiler-options />
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashAtlasPacker-app.xml" package-file-name="FlashAtlasPacker" />
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FlashAtlasPacker-app.xml" package-file-name="HeliumRushBuilder" />
         <packaging-android />
         <packaging-ios />
       </configuration>
