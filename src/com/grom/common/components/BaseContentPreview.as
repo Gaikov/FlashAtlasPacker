@@ -20,6 +20,7 @@ public class BaseContentPreview extends UIComponent
 	public function BaseContentPreview()
 	{
 		addChild(_content);
+		mouseChildren = false;
 		new CaptureMousePolicy(this, new MouseListener(onMouseDown, onMouseMove));
 	}
 

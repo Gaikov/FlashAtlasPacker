@@ -1,6 +1,7 @@
 package com.grom.HRLevelExporter.views
 {
 import com.grom.common.components.BaseContentPreview;
+import com.grom.lib.graphics.bitmap.CachedFrame;
 
 import flash.display.DisplayObject;
 
@@ -11,19 +12,15 @@ public class LevelPreview extends BaseContentPreview
 
 	public function set level(value:DisplayObject):void
 	{
-		if (_level != value)
+		if (_level)
 		{
-			if (_level)
-			{
-				content.removeChild(_level);
-			}
+			content.removeChild(_level);
+		}
 
-			_level = value;
-
-			if (_level)
-			{
-				content.addChild(_level);
-			}
+		if (value)
+		{
+			_level = CachedFrame.cachedSprite(value);
+			content.addChild(_level);
 		}
 	}
 }

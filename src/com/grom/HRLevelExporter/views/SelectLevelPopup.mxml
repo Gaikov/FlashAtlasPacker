@@ -8,12 +8,12 @@
 
         <s:HGroup width="100%">
 
-            <s:HGroup verticalAlign="middle">
+            <s:HGroup verticalAlign="middle" width="100%">
                 <s:Label text="Find:"/>
-                <s:TextInput id="inputFind" change="updateFilter(inputFind.text)"/>
+                <s:TextInput id="inputFind" width="100%" change="updateFilter(inputFind.text.toLowerCase())"/>
             </s:HGroup>
 
-            <s:HGroup horizontalAlign="right" width="100%">
+            <s:HGroup horizontalAlign="right">
                 <s:Button label="OK" click="onOk()"/>
                 <s:Button label="Close" click="close()"/>
             </s:HGroup>
@@ -77,10 +77,15 @@
             }
             else
             {
-                var list:Array = _levelClassesList.toArray().filter(function (levelName:String, index:int, arr:Array):Boolean
+                var list:Array = [];
+
+                for each (var name:String in _levelClassesList.toArray())
                 {
-                    return levelName.indexOf(text) >= 0;
-                });
+                    if (name.toLowerCase().indexOf(text) >= 0)
+                    {
+                        list.push(name);
+                    }
+                }
 
                 _filteredList = new ArrayList(list);
             }

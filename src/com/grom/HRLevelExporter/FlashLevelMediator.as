@@ -11,6 +11,7 @@ import com.grom.common.BaseMediator;
 import com.grom.HRLevelExporter.events.PlayLevelSignal;
 import com.grom.HRLevelExporter.model.LevelModel;
 import com.grom.HRLevelExporter.project.LevelProject;
+import com.grom.lib.debug.LogTracePolicy;
 import com.grom.sys.FileUtils;
 
 import flash.desktop.NativeProcess;
@@ -39,6 +40,9 @@ public class FlashLevelMediator extends BaseMediator
 	override public function initialize():void
 	{
 		super.initialize();
+
+		Log.addAdapter(new LogTracePolicy());
+		Log.info("...init app");
 
 		addContextListener(PlayLevelSignal.PLAY_LEVEL_SIGNAL, onPlayQueryEvent);
 
