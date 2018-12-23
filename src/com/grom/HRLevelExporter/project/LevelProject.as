@@ -32,6 +32,7 @@ public class LevelProject extends BaseProject
 	private var _gamePath:FileNameProjectVariable = new FileNameProjectVariable("game_path");
 	private var _workFolder:FileNameProjectVariable = new FileNameProjectVariable("working_folder");
 	private var _levelStartNum:StringProjectVariable = new StringProjectVariable("level_start_num", "0");
+	private var _previewBackground:StringProjectVariable = new StringProjectVariable("preview_background", "");
 	private var _classesList:ArrayList = new ArrayList();
 	private var _swfClassesMap:Object = {};
 
@@ -44,8 +45,17 @@ public class LevelProject extends BaseProject
 		registerProjectVariable(_levelStartNum);
 		registerProjectVariable(_levelsList);
 
-
 		tryLoad();
+	}
+
+	public function get previewBackground():String
+	{
+		return _previewBackground.value;
+	}
+
+	public function set previewBackground(value:String):void
+	{
+		_previewBackground.value = value;
 	}
 
 	[Bindable]
@@ -140,6 +150,10 @@ public class LevelProject extends BaseProject
 	public function getLevelMovie(className:String):MovieClip
 	{
 		var cls:Class = _swfClassesMap[className];
+		if (!cls)
+		{
+			return null;
+		}
 		return new cls();
 	}
 
