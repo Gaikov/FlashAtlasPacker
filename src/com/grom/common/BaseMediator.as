@@ -1,4 +1,4 @@
-package com.grom.HRLevelExporter.common
+package com.grom.common
 {
 import robotlegs.bender.bundles.mvcs.Mediator;
 

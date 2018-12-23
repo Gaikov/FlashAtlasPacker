@@ -7,7 +7,7 @@
  */
 package com.grom.HRLevelExporter
 {
-import com.grom.HRLevelExporter.common.BaseMediator;
+import com.grom.common.BaseMediator;
 import com.grom.HRLevelExporter.events.PlayLevelSignal;
 import com.grom.HRLevelExporter.model.LevelModel;
 import com.grom.HRLevelExporter.project.LevelProject;
