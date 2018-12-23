@@ -5,19 +5,22 @@
               verticalAlign="middle">
 
 
-        <s:Button label="Play" click="onClickPlay()"/>
+        <s:Button id="buttonPlay" label="Play"/>
         <s:NumericStepper id="difficult" value="{_model._levelDifficult}" minimum="1" maximum="10"
                           change="onDifficultChanged()" />
         <s:Label text="{_model._levelClass}"/>
 
         <fx:Script><![CDATA[
-            import com.grom.HRLevelExporter.events.PlayQueryEvent;
             import com.grom.HRLevelExporter.model.LevelModel;
-
-            import com.grom.cqrs.domain.eventbus.EventBus;
 
             [Bindable]
             private var _model:LevelModel;
+
+
+            public function get model():LevelModel
+            {
+                return _model;
+            }
 
             override public function set data(value:Object):void
             {
@@ -30,11 +33,6 @@
                 {
                     _model = null;
                 }
-            }
-
-            private function onClickPlay():void
-            {
-                EventBus.instance.dispatchEvent(new PlayQueryEvent(LevelModel(data)));
             }
 
             private function onDifficultChanged():void

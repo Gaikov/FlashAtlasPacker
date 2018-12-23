@@ -16,14 +16,24 @@
         import com.grom.lib.debug.Log;
         import com.grom.lib.utils.UString;
 
+        import robotlegs.bender.bundles.mvcs.MVCSBundle;
+        import robotlegs.bender.extensions.contextView.ContextView;
+        import robotlegs.bender.framework.api.IContext;
+
+        import robotlegs.bender.framework.impl.Context;
+
         [Bindable]
         public var _project:LevelProject;
-        private var _presenter:FlashLevelPresenter;
+        private var _context:IContext;
 
         private function onApplicationCreated():void
         {
             _project = new LevelProject();
-            _presenter = new FlashLevelPresenter(this);
+
+            _context = new Context()
+                    .install(MVCSBundle)
+                    .configure(LevelsAppConfig)
+                    .configure(new ContextView(stage));
         }
 
         private function onClickSave():void
@@ -192,12 +202,12 @@
         </s:HGroup>
 
         <s:HGroup verticalAlign="middle">
-            <s:Button label="Game Executable..." click="_presenter.selectGameFile()"/>
+            <s:Button id="buttonGameExec" label="Game Executable..."/>
             <s:Label text="{_project.gamePath}"/>
         </s:HGroup>
 
         <s:HGroup verticalAlign="middle">
-            <s:Button label="Working Folder..." click="_presenter.selectWorkingFolder()"/>
+            <s:Button id="buttonWorkingFolder" label="Working Folder..."/>
             <s:Label text="{_project.workFolder}"/>
         </s:HGroup>
 

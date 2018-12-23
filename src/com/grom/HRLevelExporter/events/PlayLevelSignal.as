@@ -9,20 +9,28 @@ package com.grom.HRLevelExporter.events
 {
 import com.grom.HRLevelExporter.model.LevelModel;
 
-import com.grom.cqrs.domain.event.BaseEvent;
+import flash.events.Event;
 
-public class PlayQueryEvent implements BaseEvent
+public class PlayLevelSignal extends Event
 {
+	public static const PLAY_LEVEL_SIGNAL:String = "PlayLevelSignal.PLAY_LEVEL_SIGNAL";
+
 	private var _levelModel:LevelModel;
 
-	public function PlayQueryEvent(levelModel:LevelModel)
+	public function PlayLevelSignal(levelModel:LevelModel)
 	{
+		super(PLAY_LEVEL_SIGNAL);
 		_levelModel = levelModel;
 	}
 
 	public function get levelModel():LevelModel
 	{
 		return _levelModel;
+	}
+
+	override public function clone():Event
+	{
+		return new PlayLevelSignal(_levelModel);
 	}
 }
 }

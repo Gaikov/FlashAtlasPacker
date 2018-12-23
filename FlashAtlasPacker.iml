@@ -11,6 +11,9 @@
             <entry library-name="libs" library-level="project">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-name="appLibs" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
           </entries>
           <sdk name="apache-flex-sdk-4.16.1-air_25" />
         </dependencies>
@@ -23,6 +26,12 @@
         <dependencies>
           <entries>
             <entry module-name="asLib" build-configuration-name="asLib">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="libs" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="appLibs" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -46,5 +55,6 @@
     <orderEntry type="module" module-name="asLib" exported="" />
     <orderEntry type="library" exported="" name="MainLibDependency" level="project" />
     <orderEntry type="library" exported="" name="libs" level="project" />
+    <orderEntry type="library" exported="" name="appLibs" level="project" />
   </component>
 </module>

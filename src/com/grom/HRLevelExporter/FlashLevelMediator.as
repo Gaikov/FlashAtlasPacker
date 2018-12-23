@@ -7,39 +7,41 @@
  */
 package com.grom.HRLevelExporter
 {
-import com.grom.HRLevelExporter.events.PlayQueryEvent;
+import com.grom.HRLevelExporter.common.BaseMediator;
+import com.grom.HRLevelExporter.events.PlayLevelSignal;
 import com.grom.HRLevelExporter.model.LevelModel;
 import com.grom.HRLevelExporter.project.LevelProject;
 
 import flash.desktop.NativeProcess;
 import flash.desktop.NativeProcessStartupInfo;
-import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.MouseEvent;
 import flash.filesystem.File;
 import flash.net.FileFilter;
 
-import com.grom.cqrs.presenter.BasePresenter;
 import com.grom.lib.debug.Log;
 
-public class FlashLevelPresenter extends BasePresenter
+public class FlashLevelMediator extends BaseMediator
 {
-	public function FlashLevelPresenter(view:DisplayObject)
-	{
-		super(view);
-	}
-	
+	[Inject]
+	public var view:FlashLevelExporter;
+
 	public function get project():LevelProject
 	{
 		return FlashLevelExporter(view)._project;
 	}
 
-	override protected function registerEventListeners():void
+	override public function initialize():void
 	{
-		super.registerEventListeners();
-		registerEventListener(PlayQueryEvent, onPlayQueryEvent);
+		super.initialize();
+
+		addContextListener(PlayLevelSignal.PLAY_LEVEL_SIGNAL, onPlayQueryEvent);
+
+		view.buttonGameExec.addEventListener(MouseEvent.CLICK, onClickGameExec);
+		view.buttonWorkingFolder.addEventListener(MouseEvent.CLICK, onClickWorkingFolder);
 	}
 
-	private function onPlayQueryEvent(e:PlayQueryEvent):void
+	private function onPlayQueryEvent(e:PlayLevelSignal):void
 	{
 		var path:File = new File(project.exportPath);
 		var lm:LevelModel = e.levelModel;
@@ -77,6 +79,11 @@ public class FlashLevelPresenter extends BasePresenter
 		process.start(processInfo);
 	}
 
+	private function onClickGameExec(event:MouseEvent):void
+	{
+		selectGameFile();
+	}
+
 	public function selectGameFile():void
 	{
 		var file:File = new File();
@@ -85,6 +92,11 @@ public class FlashLevelPresenter extends BasePresenter
 			project.gamePath = file.nativePath;
 		});
 		file.browseForOpen("Select game executable", [new FileFilter("Executable", "*.exe")]);
+	}
+
+	private function onClickWorkingFolder(event:MouseEvent):void
+	{
+		selectWorkingFolder();
 	}
 
 	public function selectWorkingFolder():void
