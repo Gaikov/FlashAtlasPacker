@@ -9,6 +9,7 @@ package com.grom.HRLevelExporter.project
 {
 import com.grom.HRLevelExporter.model.LevelsListProjectVariable;
 import com.grom.ToolsCommon.project.BaseProject;
+import com.grom.ToolsCommon.project.BoolProjectVar;
 import com.grom.ToolsCommon.project.FileNameProjectVariable;
 import com.grom.ToolsCommon.project.StringProjectVariable;
 import com.grom.ToolsCommon.swf.SWFUtils;
@@ -33,6 +34,7 @@ public class LevelProject extends BaseProject
 	private var _workFolder:FileNameProjectVariable = new FileNameProjectVariable("working_folder");
 	private var _levelStartNum:StringProjectVariable = new StringProjectVariable("level_start_num", "0");
 	private var _previewBackground:StringProjectVariable = new StringProjectVariable("preview_background", "");
+	private var _sortLevelsByPriority:BoolProjectVar = new BoolProjectVar("sort_levels_by_priority", true);
 	private var _classesList:ArrayList = new ArrayList();
 	private var _swfClassesMap:Object = {};
 
@@ -101,6 +103,12 @@ public class LevelProject extends BaseProject
 	public function get levelsList():LevelsListProjectVariable
 	{
 		return _levelsList;
+	}
+
+	[Bindable]
+	public function get sortLevelsByPriority():BoolProjectVar
+	{
+		return _sortLevelsByPriority;
 	}
 
 	[Bindable]
