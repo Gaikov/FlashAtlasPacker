@@ -8,7 +8,7 @@
         <s:Button id="buttonPlay" label="Play"/>
         <s:NumericStepper id="difficult" value="{_model._levelDifficult}" minimum="1" maximum="10"
                           change="onDifficultChanged()" />
-        <s:Label text="{_model._levelClass}"/>
+        <s:Label text="{_model._levelClass}" width="100%"/>
 
         <fx:Script><![CDATA[
             import com.grom.HRLevelExporter.model.LevelModel;

@@ -48,14 +48,10 @@ public class LevelProject extends BaseProject
 		tryLoad();
 	}
 
-	public function get previewBackground():String
+	[Bindable]
+	public function get previewBackground():StringProjectVariable
 	{
-		return _previewBackground.value;
-	}
-
-	public function set previewBackground(value:String):void
-	{
-		_previewBackground.value = value;
+		return _previewBackground;
 	}
 
 	[Bindable]

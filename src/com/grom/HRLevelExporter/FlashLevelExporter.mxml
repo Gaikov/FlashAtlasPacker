@@ -4,6 +4,7 @@
         xmlns:s="library://ns.adobe.com/flex/spark"
         xmlns:mx="library://ns.adobe.com/flex/mx"
         xmlns:ms="http://ns.adobe.com/mxml/2009" xmlns:views="com.grom.HRLevelExporter.views.*"
+        xmlns:levels="com.grom.HRLevelExporter.views.levels.*"
         applicationComplete="onApplicationCreated()">
 
     <ms:Script><![CDATA[
@@ -24,8 +25,13 @@
         import robotlegs.bender.framework.impl.Context;
 
         [Bindable]
-        public var _project:LevelProject;
+        private var _project:LevelProject;
         private var _context:IContext;
+
+        public function get project():LevelProject
+        {
+            return _project;
+        }
 
         private function onApplicationCreated():void
         {
@@ -195,9 +201,10 @@
                                       minimum="0" maximum="1000"
                                       change="_project.levelStartNum = levelStartNum.value"/>
                 </s:HGroup>
-                <s:List id="listSelectedLevels" width="400" height="100%"
-                        itemRenderer="com.grom.HRLevelExporter.views.LevelItemRenderer"
-                        dataProvider="{_project.levelsList.value}"/>
+                <levels:LevelsList id="listSelectedLevels" width="400" height="100%"
+                                   itemRenderer="com.grom.HRLevelExporter.views.levels.LevelItemRenderer"
+                                   dragEnabled="true" dropEnabled="true" dragMoveEnabled="true"
+                                   dataProvider="{_project.levelsList.value}"/>
             </s:VGroup>
 
             <views:LevelPreview id="levelPreview" width="100%" height="100%"/>

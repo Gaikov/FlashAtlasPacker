@@ -15,6 +15,7 @@ public class LevelPreview extends BaseContentPreview
 		if (_level)
 		{
 			content.removeChild(_level);
+			_level = null;
 		}
 
 		if (value)

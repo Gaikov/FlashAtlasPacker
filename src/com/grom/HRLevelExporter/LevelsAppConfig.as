@@ -1,7 +1,7 @@
 package com.grom.HRLevelExporter
 {
-import com.grom.HRLevelExporter.views.LevelItemMediator;
-import com.grom.HRLevelExporter.views.LevelItemRenderer;
+import com.grom.HRLevelExporter.views.levels.LevelItemMediator;
+import com.grom.HRLevelExporter.views.levels.LevelItemRenderer;
 
 import robotlegs.bender.extensions.contextView.ContextView;
 import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;

@@ -34,7 +34,7 @@ public class FlashLevelMediator extends BaseMediator
 
 	public function get project():LevelProject
 	{
-		return FlashLevelExporter(view)._project;
+		return FlashLevelExporter(view).project;
 	}
 
 	override public function initialize():void

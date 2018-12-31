@@ -1,4 +1,4 @@
-package com.grom.HRLevelExporter.views
+package com.grom.HRLevelExporter.views.levels
 {
 import com.grom.HRLevelExporter.events.PlayLevelSignal;
 
@@ -17,7 +17,6 @@ public class LevelItemMediator extends Mediator
 
 		view.buttonPlay.addEventListener(MouseEvent.CLICK, onClickPlay);
 	}
-
 
 	override public function destroy():void
 	{

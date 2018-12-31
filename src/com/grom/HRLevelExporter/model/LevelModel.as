@@ -18,5 +18,10 @@ public class LevelModel
 		_levelClass = levelClass;
 		_levelDifficult = levelDifficult;
 	}
+
+	public function clone():Object
+	{
+		return new LevelModel(_levelClass, _levelDifficult)
+	}
 }
 }
