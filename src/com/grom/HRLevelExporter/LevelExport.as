@@ -18,7 +18,7 @@ public class LevelExport
 {
 	static private function parseLevel(levelMovie:MovieClip):XML
 	{
-		var level:XML = <level></level>;
+		var level:XML = <level/>;
 		//var level:Array = [];
 
 		for (var i:int = 0; i < levelMovie.numChildren; i++)

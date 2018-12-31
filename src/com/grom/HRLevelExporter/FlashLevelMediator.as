@@ -70,7 +70,7 @@ public class FlashLevelMediator extends BaseMediator
 
 	private function onPlayQueryEvent(e:PlayLevelSignal):void
 	{
-		var path:File = new File(project.exportPath);
+		var path:File = new File(project.workFolder);
 		var lm:LevelModel = e.levelModel;
 		LevelExport.saveLevel("design_level.xml", path, project.getLevelMovie(lm._levelClass));
 
@@ -107,6 +107,7 @@ public class FlashLevelMediator extends BaseMediator
 		var processInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
 		processInfo.executable = new File(project.gamePath);
 		processInfo.workingDirectory = new File(project.workFolder);
+		processInfo.arguments = new <String>["-level-design"];
 
 		var process:NativeProcess = new NativeProcess();
 		process.start(processInfo);
