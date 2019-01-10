@@ -64,5 +64,10 @@ public class BaseProjectVariable extends EventDispatcher
 		dispatchEvent(new Event("VarChangedEvent"));
 		_modified = false;
 	}
+
+	public function reset():void
+	{
+		validate();
+	}
 }
 }

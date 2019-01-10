@@ -46,5 +46,11 @@ public class StringProjectVariable extends BaseProjectVariable
 			invalidate();
 		}
 	}
+
+	override public function reset():void
+	{
+		_value = "";
+		super.reset();
+	}
 }
 }

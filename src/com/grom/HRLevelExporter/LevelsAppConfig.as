@@ -1,8 +1,11 @@
 package com.grom.HRLevelExporter
 {
+import com.grom.HRLevelExporter.project.LevelProject;
 import com.grom.HRLevelExporter.views.levels.LevelItemMediator;
 import com.grom.HRLevelExporter.views.levels.LevelItemRenderer;
 import com.grom.HRLevelExporter.views.menu.AppMenu;
+import com.grom.HRLevelExporter.views.settings.SettingsMediator;
+import com.grom.HRLevelExporter.views.settings.SettingsPopup;
 
 import flash.display.Stage;
 
@@ -34,7 +37,9 @@ public class LevelsAppConfig implements IConfig
 	{
 		mediatorMap.map(FlashLevelExporter).toMediator(FlashLevelMediator);
 		mediatorMap.map(LevelItemRenderer).toMediator(LevelItemMediator);
+		mediatorMap.map(SettingsPopup).toMediator(SettingsMediator);
 
+		injector.map(LevelProject).asSingleton();
 		injector.map(Stage).toValue(contextView.view.stage);
 
 		injector.map(AppMenu).toValue(injector.instantiateUnmapped(AppMenu));

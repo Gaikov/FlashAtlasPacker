@@ -45,15 +45,16 @@ public class BaseProject extends EventDispatcher
 		dispatchEvent(new Event("FileNameChangedEvent"));
 	}
 
-	final public function tryLoad():void
+	final public function tryLoad():Boolean
 	{
 		if (fileName)
 		{
-			load();
+			return load();
 		}
+		return false;
 	}
 
-	final public function load():void
+	final public function load():Boolean
 	{
 		Log.info("loading project: ", fileName);
 
@@ -61,7 +62,7 @@ public class BaseProject extends EventDispatcher
 		var bytes:ByteArray = Utils.readFile(file);
 		if (!bytes)
 		{
-			return;
+			return false;
 		}
 		var xml:XML = new XML(bytes.readUTFBytes(bytes.bytesAvailable));
 
@@ -79,11 +80,12 @@ public class BaseProject extends EventDispatcher
 			}
 		}
 
-		onLoaded();
+		return onLoaded();
 	}
 
-	protected function onLoaded():void
+	protected function onLoaded():Boolean
 	{
+		return true;
 	}
 
 	private function findVar(name:String):BaseProjectVariable
@@ -113,6 +115,15 @@ public class BaseProject extends EventDispatcher
 		stream.open(file, FileMode.WRITE);
 		stream.writeUTFBytes(xml.toXMLString());
 		stream.close();
+	}
+
+	public function newProject():void
+	{
+		_fileName.value = "";
+		for each (var v:BaseProjectVariable in _vars)
+		{
+			v.reset();
+		}
 	}
 }
 }

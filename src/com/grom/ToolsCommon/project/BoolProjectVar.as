@@ -40,5 +40,11 @@ public class BoolProjectVar extends BaseProjectVariable
 			invalidate();
 		}
 	}
+
+	override public function reset():void
+	{
+		_value = _defaultValue;
+		super.reset();
+	}
 }
 }

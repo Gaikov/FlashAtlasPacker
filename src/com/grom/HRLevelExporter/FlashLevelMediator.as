@@ -32,14 +32,14 @@ public class FlashLevelMediator extends BaseMediator
 	[Inject]
 	public var view:FlashLevelExporter;
 
-	public function get project():LevelProject
-	{
-		return FlashLevelExporter(view).project;
-	}
+	[Inject]
+	public var project:LevelProject;
 
 	override public function initialize():void
 	{
 		super.initialize();
+
+		view.project = project;
 
 		Log.addAdapter(new LogTracePolicy());
 		Log.info("...init app");
@@ -50,6 +50,8 @@ public class FlashLevelMediator extends BaseMediator
 		view.buttonWorkingFolder.addEventListener(MouseEvent.CLICK, onClickWorkingFolder);
 
 		view.listSelectedLevels.addEventListener(IndexChangeEvent.CHANGE, onSelectedLevelChanged);
+
+		project.tryLoad();
 	}
 
 	private function onSelectedLevelChanged(event:IndexChangeEvent):void

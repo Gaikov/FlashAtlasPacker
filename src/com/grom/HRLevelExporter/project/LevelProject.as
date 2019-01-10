@@ -46,8 +46,13 @@ public class LevelProject extends BaseProject
 		registerProjectVariable(_workFolder);
 		registerProjectVariable(_levelStartNum);
 		registerProjectVariable(_levelsList);
+	}
 
-		tryLoad();
+	override public function newProject():void
+	{
+		super.newProject();
+		_classesList.removeAll();
+		_swfClassesMap = {};
 	}
 
 	[Bindable]
@@ -161,12 +166,13 @@ public class LevelProject extends BaseProject
 		return new cls();
 	}
 
-	override protected function onLoaded():void
+	override protected function onLoaded():Boolean
 	{
 		if (swfFileName)
 		{
 			updateSWFClasses();
 		}
+		return true;
 	}
 }
 }

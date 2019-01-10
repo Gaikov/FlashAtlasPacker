@@ -1,6 +1,7 @@
 package com.grom.HRLevelExporter.views.menu
 {
 import com.grom.HRLevelExporter.views.menu.base.MenuBase;
+import com.grom.HRLevelExporter.views.settings.SettingsPopup;
 
 import flash.desktop.NativeApplication;
 
@@ -19,7 +20,7 @@ public class MenuFile extends MenuBase
 
 		addMenuItem(SETTINGS, function ():void
 		{
-
+			SettingsPopup.show();
 		});
 
 		addSeparator();

@@ -75,5 +75,11 @@ public class ArrayListProjectVariable extends BaseProjectVariable
 	{
 		throw new Error("Can't set ArrayList directly!");
 	}
+
+	override public function reset():void
+	{
+		_list.removeAll();
+		super.reset();
+	}
 }
 }
