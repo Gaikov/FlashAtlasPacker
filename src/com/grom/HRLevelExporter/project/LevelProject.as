@@ -9,6 +9,7 @@ package com.grom.HRLevelExporter.project
 {
 import com.grom.HRLevelExporter.model.LevelsListProjectVariable;
 import com.grom.ToolsCommon.project.BaseProject;
+import com.grom.ToolsCommon.project.BaseProjectVariable;
 import com.grom.ToolsCommon.project.BoolProjectVar;
 import com.grom.ToolsCommon.project.FileNameProjectVariable;
 import com.grom.ToolsCommon.project.StringProjectVariable;
@@ -46,6 +47,11 @@ public class LevelProject extends BaseProject
 		registerProjectVariable(_workFolder);
 		registerProjectVariable(_levelStartNum);
 		registerProjectVariable(_levelsList);
+
+		_swfFileName.addEventListener(BaseProjectVariable.CHANGED, function ():void
+		{
+			updateSWFClasses();
+		})
 	}
 
 	override public function newProject():void
@@ -55,54 +61,29 @@ public class LevelProject extends BaseProject
 		_swfClassesMap = {};
 	}
 
-	[Bindable]
 	public function get previewBackground():StringProjectVariable
 	{
 		return _previewBackground;
 	}
 
-	[Bindable]
-	public function get levelStartNum():int
+	public function get levelStartNum():StringProjectVariable
 	{
-		return _levelStartNum.value;
+		return _levelStartNum;
 	}
 
-	public function set levelStartNum(value:int):void
+	public function get gamePath():FileNameProjectVariable
 	{
-		_levelStartNum.value = value;
+		return _gamePath;
 	}
 
-	[Bindable]
-	public function get gamePath():String
+	public function get workFolder():FileNameProjectVariable
 	{
-		return _gamePath.value;
+		return _workFolder;
 	}
 
-	public function set gamePath(value:String):void
+	public function get exportPath():FileNameProjectVariable
 	{
-		_gamePath.value = value;
-	}
-
-	[Bindable]
-	public function get workFolder():String
-	{
-		return _workFolder.value;
-	}
-
-	public function set workFolder(value:String):void
-	{
-		_workFolder.value = value;
-	}
-
-	[Bindable]
-	public function get exportPath():String
-	{
-		return _exportPath.value;
-	}
-
-	public function set exportPath(value:String):void
-	{
-		_exportPath.value = value;
+		return _exportPath;
 	}
 
 	public function get levelsList():LevelsListProjectVariable
@@ -110,25 +91,14 @@ public class LevelProject extends BaseProject
 		return _levelsList;
 	}
 
-	[Bindable]
 	public function get sortLevelsByPriority():BoolProjectVar
 	{
 		return _sortLevelsByPriority;
 	}
 
-	[Bindable]
-	public function get swfFileName():String
+	public function get swfFileName():FileNameProjectVariable
 	{
-		return _swfFileName.value;
-	}
-
-	public function set swfFileName(value:String):void
-	{
-		if (_swfFileName.value != value)
-		{
-			_swfFileName.value = value;
-			updateSWFClasses();
-		}
+		return _swfFileName;
 	}
 
 	[Bindable (event="ClassesListChanged")]
@@ -139,7 +109,12 @@ public class LevelProject extends BaseProject
 
 	private function updateSWFClasses():void
 	{
-		var bytes:ByteArray = Utils.readFile(new File(swfFileName));
+		if (!swfFileName.value)
+		{
+			return;
+		}
+
+		var bytes:ByteArray = Utils.readFile(new File(swfFileName.value));
 		if (bytes)
 		{
 			_classesList = new ArrayList(SWFUtils.getClassNames(bytes));
@@ -152,7 +127,7 @@ public class LevelProject extends BaseProject
 		}
 		else
 		{
-			Log.error("Can't load swf: " + swfFileName);
+			Log.error("Can't load swf: " + swfFileName.value);
 		}
 	}
 
@@ -164,15 +139,6 @@ public class LevelProject extends BaseProject
 			return null;
 		}
 		return new cls();
-	}
-
-	override protected function onLoaded():Boolean
-	{
-		if (swfFileName)
-		{
-			updateSWFClasses();
-		}
-		return true;
 	}
 }
 }

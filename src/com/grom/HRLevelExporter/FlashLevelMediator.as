@@ -72,16 +72,16 @@ public class FlashLevelMediator extends BaseMediator
 
 	private function onPlayQueryEvent(e:PlayLevelSignal):void
 	{
-		var path:File = new File(project.workFolder);
+		var path:File = new File(project.workFolder.value);
 		var lm:LevelModel = e.levelModel;
 		LevelExport.saveLevel("design_level.xml", path, project.getLevelMovie(lm._levelClass));
 
 
-		if (!project.gamePath)
+		if (!project.gamePath.value)
 		{
 			selectGameFile();
 		}
-		else if (!project.workFolder)
+		else if (!project.workFolder.value)
 		{
 			selectWorkingFolder();
 		}
@@ -100,15 +100,15 @@ public class FlashLevelMediator extends BaseMediator
 
 		Log.info("...running game: ", project.gamePath);
 
-		if (!FileUtils.isExists(project.gamePath))
+		if (!FileUtils.isExists(project.gamePath.value))
 		{
 			Alert.show("Game executable does not exist!", "Warning");
 			return;
 		}
 
 		var processInfo:NativeProcessStartupInfo = new NativeProcessStartupInfo();
-		processInfo.executable = new File(project.gamePath);
-		processInfo.workingDirectory = new File(project.workFolder);
+		processInfo.executable = new File(project.gamePath.value);
+		processInfo.workingDirectory = new File(project.workFolder.value);
 		processInfo.arguments = new <String>["-level-design"];
 
 		var process:NativeProcess = new NativeProcess();
@@ -125,7 +125,7 @@ public class FlashLevelMediator extends BaseMediator
 		var file:File = new File();
 		file.addEventListener(Event.SELECT, function ():void
 		{
-			project.gamePath = file.nativePath;
+			project.gamePath.value = file.nativePath;
 		});
 		file.browseForOpen("Select game executable", [new FileFilter("Executable", "*.exe")]);
 	}
@@ -140,7 +140,7 @@ public class FlashLevelMediator extends BaseMediator
 		var file:File = new File();
 		file.addEventListener(Event.SELECT, function ():void
 		{
-			project.workFolder = file.nativePath;
+			project.workFolder.value = file.nativePath;
 		});
 		file.browseForDirectory("Select working folder");
 	}

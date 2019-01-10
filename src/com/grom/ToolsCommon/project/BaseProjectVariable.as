@@ -13,6 +13,8 @@ import flash.filesystem.File;
 
 public class BaseProjectVariable extends EventDispatcher
 {
+	public static const CHANGED:String = "VarChangedEvent";
+
 	private var _modified:Boolean = false;
 	private var _nodeName:String;
 
@@ -55,13 +57,13 @@ public class BaseProjectVariable extends EventDispatcher
 
 	final protected function invalidate():void
 	{
-		dispatchEvent(new Event("VarChangedEvent"));
+		dispatchEvent(new Event(CHANGED));
 		_modified = true;
 	}
 
 	final protected function validate():void
 	{
-		dispatchEvent(new Event("VarChangedEvent"));
+		dispatchEvent(new Event(CHANGED));
 		_modified = false;
 	}
 
