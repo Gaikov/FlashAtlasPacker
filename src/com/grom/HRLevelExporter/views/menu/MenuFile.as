@@ -1,5 +1,6 @@
 package com.grom.HRLevelExporter.views.menu
 {
+import com.grom.HRLevelExporter.events.LevelsAppSignal;
 import com.grom.HRLevelExporter.views.menu.base.MenuBase;
 import com.grom.HRLevelExporter.views.settings.SettingsPopup;
 
@@ -9,6 +10,7 @@ public class MenuFile extends MenuBase
 {
 	static public const EXIT:String = "Exit";
 	static public const SETTINGS:String = "Settings";
+	static public const PUBLISH:String = "Publish";
 
 	public function MenuFile()
 	{
@@ -22,6 +24,11 @@ public class MenuFile extends MenuBase
 		{
 			SettingsPopup.show();
 		});
+
+		addMenuItem(PUBLISH, function ():void
+		{
+			dispatcher.dispatchEvent(new LevelsAppSignal(LevelsAppSignal.PUBLISH));
+		}).keyEquivalent = "p";
 
 		addSeparator();
 

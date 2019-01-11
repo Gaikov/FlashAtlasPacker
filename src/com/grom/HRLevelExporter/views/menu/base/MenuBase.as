@@ -8,10 +8,14 @@ import com.grom.lib.debug.Log;
 import flash.display.NativeMenu;
 import flash.display.NativeMenuItem;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.utils.getQualifiedClassName;
 
 public class MenuBase implements IMenu
 {
+	[Inject]
+	public var dispatcher:IEventDispatcher;
+
 	protected var _menu:NativeMenu;
 
 	final public function init():void

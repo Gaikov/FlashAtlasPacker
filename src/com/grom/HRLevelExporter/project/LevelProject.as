@@ -41,6 +41,7 @@ public class LevelProject extends BaseProject
 
 	public function LevelProject()
 	{
+		registerProjectVariable(_sortLevelsByPriority);
 		registerProjectVariable(_swfFileName);
 		registerProjectVariable(_exportPath);
 		registerProjectVariable(_gamePath);

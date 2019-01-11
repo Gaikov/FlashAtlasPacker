@@ -21,7 +21,7 @@ public class BoolProjectVar extends BaseProjectVariable
 
 	override public function readXML(source:XML, projectFile:File):Boolean
 	{
-		_value = Boolean(source);
+		_value = String(source) == "true";
 		validate();
 		return true;
 	}
