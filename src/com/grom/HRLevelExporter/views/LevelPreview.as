@@ -10,6 +10,21 @@ public class LevelPreview extends BaseContentPreview
 	private var _level:DisplayObject;
 	private var _background:DisplayObject;
 
+	public function set background(value:DisplayObject):void
+	{
+		if (_background)
+		{
+			content.removeChild(_background);
+			_background = null;
+		}
+
+		if (value)
+		{
+			_background = CachedFrame.cachedSprite(value);
+			content.addChildAt(_background, 0);
+		}
+	}
+
 	public function set level(value:DisplayObject):void
 	{
 		if (_level)

@@ -5,8 +5,10 @@
 package com.grom.HRLevelExporter.views.settings
 {
 import com.grom.HRLevelExporter.project.LevelProject;
+import com.grom.HRLevelExporter.views.ItemsSelectionPopup;
 
 import flash.events.Event;
+import flash.events.MouseEvent;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -25,8 +27,8 @@ public class SettingsMediator extends Mediator
 	override public function initialize():void
 	{
 		super.initialize();
+		view.project = project;
 		initListeners();
-		updateView();
 	}
 
 	private function initListeners():void
@@ -35,11 +37,14 @@ public class SettingsMediator extends Mediator
 		{
 			project.sortLevelsByPriority.value = view.sortLevelsCheck.selected;
 		});
-	}
 
-	private function updateView():void
-	{
-		view.sortLevelsCheck.selected = project.sortLevelsByPriority.value;
+		view.buttonBackground.addEventListener(MouseEvent.CLICK, function ():void
+		{
+			ItemsSelectionPopup.show(project.classesList, false, function (selected:Vector.<String>):void
+			{
+				project.previewBackground.value = selected;
+			});
+		});
 	}
 }
 }

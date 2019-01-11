@@ -9,7 +9,9 @@
     <ms:Script><![CDATA[
         import com.grom.HRLevelExporter.model.LevelModel;
         import com.grom.HRLevelExporter.project.LevelProject;
-        import com.grom.HRLevelExporter.views.SelectLevelPopup;
+        import com.grom.HRLevelExporter.views.ItemsSelectionPopup;
+
+        import mx.collections.ArrayList;
 
         import robotlegs.bender.bundles.mvcs.MVCSBundle;
         import robotlegs.bender.extensions.contextView.ContextView;
@@ -59,11 +61,11 @@
 
         private function onClickAddLevel():void
         {
-            SelectLevelPopup.show(project.classesList, function (modelsList:Array):void
+            ItemsSelectionPopup.show(project.classesList, true, function (selectedList:Vector.<String>):void
             {
-                for each (var model:LevelModel in modelsList)
+                for each (var name:String in selectedList)
                 {
-                    project.levelsList.addItem(model);
+                    project.levelsList.addItem(new LevelModel(name));
                 }
             });
         }
@@ -93,6 +95,11 @@
             project.fileName = null;
             project.newProject();
         }
+
+        private function createBackground(className:String, classesList:ArrayList):DisplayObject
+        {
+            return project.getLevelMovie(className);
+        }
         ]]></ms:Script>
 
 
@@ -116,10 +123,6 @@
         </s:HGroup>
         <s:HGroup width="100%" height="100%">
             <s:VGroup height="100%">
-                <s:List width="200" height="100%" dataProvider="{project.classesList}"/>
-            </s:VGroup>
-
-            <s:VGroup height="100%">
                 <s:HGroup verticalAlign="middle">
                     <s:Button label="Add level" click="onClickAddLevel()"/>
                     <s:Button label="Remove level" click="onClickRemoveLevel()"/>
@@ -135,7 +138,8 @@
                                    dataProvider="{project.levelsList.value}"/>
             </s:VGroup>
 
-            <views:LevelPreview id="levelPreview" width="100%" height="100%"/>
+            <views:LevelPreview id="levelPreview" width="100%" height="100%"
+                                background="{createBackground(project.previewBackground.value, project.classesList)}"/>
 
         </s:HGroup>
 

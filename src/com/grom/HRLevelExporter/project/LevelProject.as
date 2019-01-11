@@ -43,6 +43,7 @@ public class LevelProject extends BaseProject
 	{
 		registerProjectVariable(_sortLevelsByPriority);
 		registerProjectVariable(_swfFileName);
+		registerProjectVariable(_previewBackground);
 		registerProjectVariable(_exportPath);
 		registerProjectVariable(_gamePath);
 		registerProjectVariable(_workFolder);

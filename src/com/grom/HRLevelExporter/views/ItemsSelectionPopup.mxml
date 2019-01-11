@@ -3,27 +3,7 @@
          xmlns:s="library://ns.adobe.com/flex/spark"
          title="Select Class">
 
-    <s:VGroup width="600" height="600" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
-        <s:List id="classesList" width="100%" height="100%" dataProvider="{_filteredList}" allowMultipleSelection="true"/>
-
-        <s:HGroup width="100%">
-
-            <s:HGroup verticalAlign="middle" width="100%">
-                <s:Label text="Find:"/>
-                <s:TextInput id="inputFind" width="100%" change="updateFilter(inputFind.text.toLowerCase())"/>
-            </s:HGroup>
-
-            <s:HGroup horizontalAlign="right">
-                <s:Button label="OK" click="onOk()"/>
-                <s:Button label="Close" click="close()"/>
-            </s:HGroup>
-        </s:HGroup>
-
-    </s:VGroup>
-
     <fx:Script><![CDATA[
-        import com.grom.HRLevelExporter.model.LevelModel;
-
         import mx.collections.ArrayList;
         import mx.controls.Alert;
         import mx.core.FlexGlobals;
@@ -36,11 +16,15 @@
         [Bindable]
         private var _filteredList:ArrayList;
 
-        public static function show(levelClasses:ArrayList, selectionCompleted:Function):void
+        [Bindable]
+        private var _allowMultiSelection:Boolean;
+
+        public static function show(levelClasses:ArrayList, multiSelection:Boolean, selectionCompleted:Function):void
         {
-            var win:SelectLevelPopup = new SelectLevelPopup();
+            var win:ItemsSelectionPopup = new ItemsSelectionPopup();
             win._onSelectCompleted = selectionCompleted;
             win._levelClassesList = levelClasses;
+            win._allowMultiSelection = multiSelection;
             win.updateFilter();
             PopUpManager.addPopUp(win, DisplayObject(FlexGlobals.topLevelApplication), true);
             PopUpManager.centerPopUp(win);
@@ -59,13 +43,13 @@
                 return;
             }
 
-            var modelsList:Array = [];
+            var selectedClasses:Vector.<String> = new <String>[];
             for each (var levelClass:String in classesList.selectedItems)
             {
-                modelsList.push(new LevelModel(levelClass));
+                selectedClasses.push(levelClass);
             }
 
-            _onSelectCompleted(modelsList);
+            _onSelectCompleted(selectedClasses);
             close();
         }
 
@@ -91,4 +75,24 @@
             }
         }
         ]]></fx:Script>
+
+    <s:VGroup width="600" height="600" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10">
+        <s:List id="classesList" width="100%" height="100%" dataProvider="{_filteredList}"
+                allowMultipleSelection="{_allowMultiSelection}"/>
+
+        <s:HGroup width="100%">
+
+            <s:HGroup verticalAlign="middle" width="100%">
+                <s:Label text="Find:"/>
+                <s:TextInput id="inputFind" width="100%" change="updateFilter(inputFind.text.toLowerCase())"/>
+            </s:HGroup>
+
+            <s:HGroup horizontalAlign="right">
+                <s:Button label="OK" click="onOk()"/>
+                <s:Button label="Close" click="close()"/>
+            </s:HGroup>
+        </s:HGroup>
+
+    </s:VGroup>
+
 </s:Panel>

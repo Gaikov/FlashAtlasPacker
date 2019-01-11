@@ -6,8 +6,13 @@
                   xmlns:common="com.grom.HRLevelExporter.views.common.*" xmlns:s="library://ns.adobe.com/flex/spark"
                   title="Settings">
 	<fx:Script><![CDATA[
+		import com.grom.HRLevelExporter.project.LevelProject;
+
 		import mx.core.FlexGlobals;
 		import mx.managers.PopUpManager;
+
+		[Bindable]
+		public var project:LevelProject;
 
 		public static function show():void
 		{
@@ -19,7 +24,13 @@
 
 	<s:Form>
 		<s:FormItem label="Sort levels by priority">
-			<s:CheckBox id="sortLevelsCheck"/>
+			<s:CheckBox id="sortLevelsCheck" selected="{project.sortLevelsByPriority.value}"/>
+		</s:FormItem>
+		<s:FormItem label="Preview background">
+			<s:HGroup>
+				<s:TextInput editable="false" text="{project.previewBackground.value}"/>
+				<s:Button id="buttonBackground" label="..."/>
+			</s:HGroup>
 		</s:FormItem>
 	</s:Form>
 
