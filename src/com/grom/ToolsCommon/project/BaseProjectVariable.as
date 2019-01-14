@@ -71,5 +71,10 @@ public class BaseProjectVariable extends EventDispatcher
 	{
 		validate();
 	}
+
+	override public function toString():String
+	{
+		return value;
+	}
 }
 }
