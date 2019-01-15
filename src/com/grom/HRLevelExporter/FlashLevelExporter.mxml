@@ -5,7 +5,7 @@
         xmlns:ms="http://ns.adobe.com/mxml/2009" xmlns:views="com.grom.HRLevelExporter.views.*"
         xmlns:levels="com.grom.HRLevelExporter.views.levels.*"
         applicationComplete="onApplicationCreated()"
-        title="Levels Exporter - '{project.fileName ? project.fileName : 'new'}'">
+        title="Levels Exporter - '{project.fileName ? project.fileName : 'new project'}'">
 
     <ms:Script><![CDATA[
         import com.grom.HRLevelExporter.model.LevelModel;
