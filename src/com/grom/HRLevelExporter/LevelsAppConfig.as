@@ -1,7 +1,9 @@
 package com.grom.HRLevelExporter
 {
-import com.grom.HRLevelExporter.commands.PublishLevelsCommand;
+import com.grom.HRLevelExporter.commands.project.OpenLevelsProjectCommand;
+import com.grom.HRLevelExporter.commands.project.PublishLevelsCommand;
 import com.grom.HRLevelExporter.commands.RunLevelCommand;
+import com.grom.HRLevelExporter.commands.project.SaveLevelsProjectCommand;
 import com.grom.HRLevelExporter.events.LevelsAppSignal;
 import com.grom.HRLevelExporter.events.PlayLevelSignal;
 import com.grom.HRLevelExporter.project.LevelProject;
@@ -49,6 +51,9 @@ public class LevelsAppConfig implements IConfig
 
 		commandMap.map(LevelsAppSignal.PUBLISH, LevelsAppSignal).toCommand(PublishLevelsCommand);
 		commandMap.map(PlayLevelSignal.PLAY_LEVEL_SIGNAL, PlayLevelSignal).toCommand(RunLevelCommand);
+
+		commandMap.map(LevelsAppSignal.SAVE, LevelsAppSignal).toCommand(SaveLevelsProjectCommand);
+		commandMap.map(LevelsAppSignal.OPEN, LevelsAppSignal).toCommand(OpenLevelsProjectCommand);
 	}
 }
 }

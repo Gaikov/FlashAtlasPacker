@@ -2,7 +2,7 @@
  * Created by Roman.Gaikov on 1/11/2019
  */
 
-package com.grom.HRLevelExporter.commands
+package com.grom.HRLevelExporter.commands.project
 {
 import com.grom.HRLevelExporter.LevelExport;
 import com.grom.HRLevelExporter.model.LevelModel;

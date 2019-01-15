@@ -4,7 +4,8 @@
         xmlns:s="library://ns.adobe.com/flex/spark"
         xmlns:ms="http://ns.adobe.com/mxml/2009" xmlns:views="com.grom.HRLevelExporter.views.*"
         xmlns:levels="com.grom.HRLevelExporter.views.levels.*"
-        applicationComplete="onApplicationCreated()">
+        applicationComplete="onApplicationCreated()"
+        title="Levels Exporter - '{project.fileName ? project.fileName : 'new'}'">
 
     <ms:Script><![CDATA[
         import com.grom.HRLevelExporter.model.LevelModel;
@@ -29,24 +30,6 @@
                     .install(MVCSBundle)
                     .configure(LevelsAppConfig)
                     .configure(new ContextView(stage));
-        }
-
-        private function onClickSave():void
-        {
-            if (!project.fileName)
-            {
-                var file:File = new File();
-                file.addEventListener(Event.SELECT, function ():void
-                {
-                    project.fileName = file.nativePath;
-                    project.save();
-                });
-                file.browseForSave("Save Project");
-            }
-            else
-            {
-                project.save();
-            }
         }
 
         private function onClickLoadSWF():void
@@ -79,23 +62,6 @@
         }
 
 
-        private function onClickLoad():void
-        {
-            var file:File = new File();
-            file.addEventListener(Event.SELECT, function ():void
-            {
-                project.fileName = file.nativePath;
-                project.tryLoad();
-            });
-            file.browseForOpen("Open levels project", [new FileFilter("Project file", "*.xml")]);
-        }
-
-        private function onClickNew():void
-        {
-            project.fileName = null;
-            project.newProject();
-        }
-
         private function createBackground(className:String, classesList:ArrayList):DisplayObject
         {
             return project.getLevelMovie(className);
@@ -108,12 +74,6 @@
               paddingRight="5"
               paddingTop="5"
               paddingBottom="5">
-        <s:Label id="projectLabel" text="{project.fileName}"/>
-        <s:HGroup width="100%" verticalAlign="middle">
-            <s:Button label="New Project" click="onClickNew()"/>
-            <s:Button label="Load..." click="onClickLoad()"/>
-            <s:Button label="Save..." click="onClickSave()"/>
-        </s:HGroup>
         <s:HGroup width="100%" verticalAlign="middle">
             <s:Button label="Levels SWF..." click="onClickLoadSWF()"/>
             <s:Label text="{project.swfFileName.value}"/>

@@ -8,7 +8,9 @@ import flash.events.Event;
 
 public class LevelsAppSignal extends Event
 {
-	public static const PUBLISH:String = "AppSignal::PUBLISH";
+	public static const PUBLISH:String = "LevelsAppSignal::PUBLISH";
+	public static const SAVE:String = "LevelsAppSignal::SAVE";
+	public static const OPEN:String = "LevelsAppSignal::OPEN";
 
 	public function LevelsAppSignal(type:String)
 	{
