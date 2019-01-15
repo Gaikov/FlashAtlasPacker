@@ -37,9 +37,6 @@ public class FlashLevelMediator extends BaseMediator
 		Log.addAdapter(new LogTracePolicy());
 		Log.info("...init app");
 
-		view.buttonGameExec.addEventListener(MouseEvent.CLICK, onClickGameExec);
-		view.buttonWorkingFolder.addEventListener(MouseEvent.CLICK, onClickWorkingFolder);
-
 		view.listSelectedLevels.addEventListener(IndexChangeEvent.CHANGE, onSelectedLevelChanged);
 
 		project.tryLoad();
@@ -59,16 +56,6 @@ public class FlashLevelMediator extends BaseMediator
 		}
 
 		view.levelPreview.level = movie;
-	}
-
-	private function onClickGameExec(event:MouseEvent):void
-	{
-		LevelProjectUtils.selectGameFile(project);
-	}
-
-	private function onClickWorkingFolder(event:MouseEvent):void
-	{
-		LevelProjectUtils.selectWorkingFolder(project);
 	}
 }
 }

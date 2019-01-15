@@ -5,6 +5,7 @@
 package com.grom.HRLevelExporter.views.settings
 {
 import com.grom.HRLevelExporter.project.LevelProject;
+import com.grom.HRLevelExporter.project.LevelProjectUtils;
 import com.grom.HRLevelExporter.views.ItemsSelectionPopup;
 
 import flash.events.Event;
@@ -45,6 +46,19 @@ public class SettingsMediator extends Mediator
 				project.previewBackground.value = selected;
 			});
 		});
+
+		view.buttonGameExec.addEventListener(MouseEvent.CLICK, onClickGameExec);
+		view.buttonWorkingFolder.addEventListener(MouseEvent.CLICK, onClickWorkingFolder);
+	}
+
+	private function onClickGameExec(event:MouseEvent):void
+	{
+		LevelProjectUtils.selectGameFile(project);
+	}
+
+	private function onClickWorkingFolder(event:MouseEvent):void
+	{
+		LevelProjectUtils.selectWorkingFolder(project);
 	}
 }
 }

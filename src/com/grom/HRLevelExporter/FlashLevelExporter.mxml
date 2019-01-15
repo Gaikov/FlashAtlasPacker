@@ -61,7 +61,6 @@
             }
         }
 
-
         private function createBackground(className:String, classesList:ArrayList):DisplayObject
         {
             return project.getLevelMovie(className);
@@ -102,16 +101,5 @@
                                 background="{createBackground(project.previewBackground.value, project.classesList)}"/>
 
         </s:HGroup>
-
-        <s:HGroup verticalAlign="middle">
-            <s:Button id="buttonGameExec" label="Game Executable..."/>
-            <s:Label text="{project.gamePath.value}"/>
-        </s:HGroup>
-
-        <s:HGroup verticalAlign="middle">
-            <s:Button id="buttonWorkingFolder" label="Working Folder..."/>
-            <s:Label text="{project.workFolder.value}"/>
-        </s:HGroup>
-
     </s:VGroup>
 </s:WindowedApplication>

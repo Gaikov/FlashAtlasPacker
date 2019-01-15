@@ -28,10 +28,23 @@
 		</s:FormItem>
 		<s:FormItem label="Preview background">
 			<s:HGroup>
-				<s:TextInput editable="false" text="{project.previewBackground.value}"/>
+				<s:TextInput editable="false" text="{project.previewBackground.value}" width="400"/>
 				<s:Button id="buttonBackground" label="..."/>
 			</s:HGroup>
 		</s:FormItem>
+		<s:FormItem label="Game executable">
+			<s:HGroup>
+				<s:TextInput editable="false" text="{project.gamePath.value}" width="400"/>
+				<s:Button id="buttonGameExec" label="..."/>
+			</s:HGroup>
+		</s:FormItem>
+		<s:FormItem label="Game working folder">
+			<s:HGroup>
+				<s:TextInput editable="false" text="{project.workFolder.value}" width="400"/>
+				<s:Button id="buttonWorkingFolder" label="..."/>
+			</s:HGroup>
+		</s:FormItem>
+
 	</s:Form>
 
 </common:BasePopup>
