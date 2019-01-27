@@ -14,6 +14,7 @@ public class MenuFile extends MenuBase
 	static public const PUBLISH:String = "Publish";
 	static public const NEW_PROJECT:String = "New Project";
 	static public const OPEN:String = "Open Project";
+	static private const RELOAD:String = "Reload Project";
 	public static const SAVE:String = "Save Project";
 
 	[Inject]
@@ -42,6 +43,11 @@ public class MenuFile extends MenuBase
 		{
 			dispatcher.dispatchEvent(new LevelsAppSignal(LevelsAppSignal.SAVE));
 		}).keyEquivalent = "s";
+
+		addMenuItem(RELOAD, function ():void
+		{
+			project.tryLoad();
+		}).keyEquivalent = "r";
 
 		addMenuItem(SETTINGS, function ():void
 		{

@@ -9,13 +9,11 @@ package com.grom.HRLevelExporter
 {
 import com.grom.HRLevelExporter.model.LevelModel;
 import com.grom.HRLevelExporter.project.LevelProject;
-import com.grom.HRLevelExporter.project.LevelProjectUtils;
 import com.grom.common.BaseMediator;
 import com.grom.lib.debug.Log;
 import com.grom.lib.debug.LogTracePolicy;
 
 import flash.display.MovieClip;
-import flash.events.MouseEvent;
 
 import spark.components.Alert;
 import spark.events.IndexChangeEvent;
