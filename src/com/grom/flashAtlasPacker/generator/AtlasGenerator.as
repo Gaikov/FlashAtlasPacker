@@ -118,7 +118,7 @@ public class AtlasGenerator
 			totalPixels += entry.frame.bitmapData.width * entry.frame.bitmapData.height;
 		}
 
-		var size:uint = Math.sqrt(totalPixels);
+		var size:uint = Math.sqrt(totalPixels * 1.2);
 		Log.info("computed size: " + size);
 
 		var power:int = 1;
